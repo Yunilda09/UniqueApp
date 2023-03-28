@@ -22,6 +22,8 @@ fun NailsListScreen(
     onNewNail: () -> Unit, viewModel: NailsViewModel = hiltViewModel(),
     onNailClick: (Int) -> Unit
 ) {
+    //
+
     Scaffold(
         modifier = Modifier
             .fillMaxWidth()
