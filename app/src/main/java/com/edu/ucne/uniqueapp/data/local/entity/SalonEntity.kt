@@ -2,7 +2,6 @@ package com.edu.ucne.uniqueapp.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.edu.ucne.uniqueapp.data.remote.dto.PersonaDto
 import com.edu.ucne.uniqueapp.data.remote.dto.SalonDto
 
 @Entity(tableName = "Personas")

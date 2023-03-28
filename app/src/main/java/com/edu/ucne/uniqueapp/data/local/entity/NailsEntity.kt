@@ -23,6 +23,6 @@ fun NailsEntity.toNailsDto(): NailsDto {
         nailsServicio = this.nailsServicio,
         precio = this.precio,
         fecha = this.fecha,
-        horario  = this.horario
+        horario = this.horario
     )
 }
