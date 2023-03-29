@@ -1,7 +1,7 @@
 package com.edu.ucne.uniqueapp.data.repository
 
 import com.edu.ucne.uniqueapp.data.remote.UniqueApi
-import com.edu.ucne.uniqueapp.data.remote.dto.SpaDto
+import com.edu.ucne.uniqueapp.data.remote.dto.ClientesDto
 import com.edu.ucne.uniqueapp.data.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -9,18 +9,18 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class SpaRepositoryImp @Inject constructor(
+class ClientesRepositoryImp @Inject constructor(
     private val api: UniqueApi
 
-): Spa1Repository {
+): Clientes1Repository {
 
-    override fun getSpa(): Flow<Resource<List<SpaDto>>> = flow {
+    override fun getClientes(): Flow<Resource<List<ClientesDto>>> = flow {
         try {
             emit(Resource.Loading())
 
-            val spa = api.getSpa()
+            val cliente = api.getClientes()
 
-            emit (Resource.Success(spa))
+            emit (Resource.Success(cliente))
         } catch (e: HttpException) {
 
             emit(Resource.Error(e.message ?: "Error HTTP GENERAL"))
@@ -28,16 +28,16 @@ class SpaRepositoryImp @Inject constructor(
             emit(Resource.Error(e.message ?: "Verificar tu conexion a internet"))
         }
     }
-    override suspend fun putSpa(id: Int, spaDto: SpaDto){
-        api.putSpa(id,spaDto)
+    override suspend fun putClientes(id: Int, clientesDto: ClientesDto){
+        api.putClientes(id,clientesDto)
     }
-    override fun getSpabyId(id: Int) : Flow<Resource<SpaDto>> = flow {
+    override fun getClientesbyId(id: Int) :Flow<Resource<ClientesDto>> = flow {
         try {
             emit(Resource.Loading())
 
-            val spa = api.getSpabyId(id)
+            val persona = api.getClientesbyId(id)
 
-            emit (Resource.Success(spa))
+            emit (Resource.Success(persona))
         } catch (e: HttpException) {
 
             emit(Resource.Error(e.message ?: "Error HTTP GENERAL"))
@@ -47,5 +47,5 @@ class SpaRepositoryImp @Inject constructor(
     }
 
 
-    override suspend fun deleteSpa(id: Int) = api.deleteSpa(id)
+    override suspend fun deleteClientes(id: Int) = api.deleteClientes(id)
 }

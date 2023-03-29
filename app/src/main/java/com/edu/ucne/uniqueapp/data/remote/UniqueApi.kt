@@ -1,23 +1,32 @@
 package com.edu.ucne.uniqueapp.data.remote
-import com.edu.ucne.uniqueapp.data.remote.dto.NailsDto
-import com.edu.ucne.uniqueapp.data.remote.dto.PersonaDto
-import com.edu.ucne.uniqueapp.data.remote.dto.SalonDto
-import com.edu.ucne.uniqueapp.data.remote.dto.SpaDto
+import com.edu.ucne.uniqueapp.data.remote.dto.*
 import retrofit2.Response
 import retrofit2.http.*
 
 interface UniqueApi {
-    //Persona
-    @GET("/api/Personas")
-    suspend fun getPersonas(): List<PersonaDto>
-    @GET("/api/Personas/{id}")
-    suspend fun getPersonasbyId(@Path("id") id: Int):PersonaDto
-    @POST("/api/Personas")
-    suspend fun postpersonas(personaDto: PersonaDto)
-    @PUT("/api/Personas/{id}")
-    suspend fun putPersonas(@Path("id") id: Int, @Body personaDto: PersonaDto):Response<Unit>
-    @DELETE("/api/Personas/{id}")
-    suspend fun deletePersonas(@Path("id") id: Int)
+    //Cliente
+    @GET("/api/Clientes")
+    suspend fun getClientes(): List<ClientesDto>
+    @GET("/api/Clientes/{id}")
+    suspend fun getClientesbyId(@Path("id") id: Int):ClientesDto
+    @POST("/api/Clientes")
+    suspend fun postClientes(clientesDto: ClientesDto)
+    @PUT("/api/Clientes/{id}")
+    suspend fun putClientes(@Path("id") id: Int, @Body clientesDto: ClientesDto):Response<Unit>
+    @DELETE("/api/Clientes/{id}")
+    suspend fun deleteClientes(@Path("id") id: Int)
+
+    // Empleadas
+    @GET("/api/Empleadas")
+    suspend fun getEmpleadas(): List<EmpleadasDto>
+    @GET("/api/Empleadas/{id}")
+    suspend fun getEmpleadasbyId(@Path("id") id: Int):EmpleadasDto
+    @POST("/api/Empleadas")
+    suspend fun postEmpleadas(empleadasDto: EmpleadasDto)
+    @PUT("/api/Empleadas/{id}")
+    suspend fun putEmpleadas(@Path("id") id: Int, @Body empleadasDto: EmpleadasDto):Response<Unit>
+    @DELETE("/api/Empleadas/{id}")
+    suspend fun deleteEmpleadas(@Path("id") id: Int)
 
     //NailsServicios
    @GET ("/api/NailsServicios")

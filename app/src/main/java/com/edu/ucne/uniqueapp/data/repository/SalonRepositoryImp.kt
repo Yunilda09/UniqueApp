@@ -1,7 +1,6 @@
 package com.edu.ucne.uniqueapp.data.repository
 
 import com.edu.ucne.uniqueapp.data.remote.UniqueApi
-import com.edu.ucne.uniqueapp.data.remote.dto.PersonaDto
 import com.edu.ucne.uniqueapp.data.remote.dto.SalonDto
 import com.edu.ucne.uniqueapp.data.util.Resource
 import kotlinx.coroutines.flow.Flow
