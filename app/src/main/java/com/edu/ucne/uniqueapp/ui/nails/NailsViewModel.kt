@@ -59,6 +59,7 @@ class NailsViewModel @Inject constructor(
     fun setNail(id: Int) {
         nailsId = id
         Limpiar()
+
         nailsRepository.getNailsbyId(nailsId).onEach { result ->
             when (result) {
                 is Resource.Loading -> {
@@ -82,20 +83,19 @@ class NailsViewModel @Inject constructor(
             }
         }.launchIn(viewModelScope)
     }
-
-   /* fun putNail() {
+    fun putNail() {
         viewModelScope.launch {
             nailsRepository.putNails(
                 nailsId, NailsDto(
+                    nailsId = nailsId,
                     nailsServicio,
                     uiStateNail.value.nail!!.precio,
                     uiStateNail.value.nail!!.fecha,
                     uiStateNail.value.nail!!.horario,
-                    nailsId = nailsId
                 )
             )
         }
-    }*/
+    }
 
     init {
         nailsRepository.getNails().onEach { result ->

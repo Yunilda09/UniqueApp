@@ -19,7 +19,8 @@ import com.edu.ucne.uniqueapp.data.remote.dto.SpaDto
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SpaListScreen(
-    onNewSpa: () -> Unit, viewModel: SpaViewModel = hiltViewModel(),
+    onNewSpa: () -> Unit,
+    viewModel: SpaViewModel = hiltViewModel(),
     onSpaClick: (Int) -> Unit
 ){
     Scaffold(

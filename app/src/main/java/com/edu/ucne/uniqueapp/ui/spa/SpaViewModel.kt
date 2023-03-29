@@ -11,6 +11,7 @@ import com.edu.ucne.uniqueapp.data.repository.SpaRepositoryImp
 import com.edu.ucne.uniqueapp.data.util.Resource
 import com.edu.ucne.uniqueapp.ui.salon.SalonListState
 import com.edu.ucne.uniqueapp.ui.salon.SalonUiState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -29,7 +30,7 @@ data class SpaUiSate(
     val spa: SpaDto? = null,
     val error: String = ""
 )
-
+@HiltViewModel
 class SpaViewModel @Inject constructor(
     private val spaRepository: SpaRepositoryImp
 
@@ -82,17 +83,19 @@ class SpaViewModel @Inject constructor(
             }
         }.launchIn(viewModelScope)
     }
-     /*fun putSpa(){
+     fun putSpa(){
          viewModelScope.launch {
-             spaRepository.putSpa(spaId, SpaDto(
-                 spaServicio,SpaUiSate.value.spa!!.spaServicio,
+             spaRepository.putSpa(
+                 spaId, SpaDto(
+                 spaId = spaId,
+                 spaServicio,
                  SpaUiSate.value.spa!!.precio,
-                 fecha,
-                 horario,
-                 spaId = spaId )
+                 SpaUiSate.value.spa!!.precio,
+                 SpaUiSate.value.spa!!.horario,
+                  )
              )
          }
-         }*/
+         }
     init {
         spaRepository.getSpa().onEach { resultad ->
             when (resultad) {

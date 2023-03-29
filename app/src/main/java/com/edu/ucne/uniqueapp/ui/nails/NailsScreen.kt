@@ -1,7 +1,8 @@
+@file:Suppress("PreviewAnnotationInFunctionWithParameters")
+
 package com.edu.ucne.uniqueapp.ui.nails
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 
@@ -28,12 +30,16 @@ fun NailsScreen(
         viewModel.setNail(nailId)
         0
     }
-    NailBody(viewModel = viewModel) {
-        onSaveClick()
+    Column(Modifier.fillMaxWidth()) {
+
+        NailBody(viewModel = viewModel){
+            onSaveClick()
+        }
     }
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun NailBody(
@@ -74,7 +80,7 @@ fun NailBody(
                     },
                     onClick = {
                         //viewModel.putNail()
-                        onSaveClick()
+                       // onSaveClick()
                     }
                 )
             }

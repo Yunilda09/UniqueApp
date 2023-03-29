@@ -18,7 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SalonScreen(
-    salonId: Int,
+    salonId: Int ,
     viewModel: SalonViewModel = hiltViewModel(),
     onSaveClick: () -> Unit
 ) {
@@ -26,8 +26,11 @@ fun SalonScreen(
         viewModel.setSalon(salonId)
         0
     }
-    SalonBody(viewModel = viewModel) {
-        onSaveClick()
+    Column(Modifier.fillMaxWidth()) {
+
+        SalonBody(viewModel = viewModel){
+            onSaveClick()
+        }
     }
 }
 
@@ -73,7 +76,7 @@ fun SalonBody(
                 },
                 onClick = {
                     //viewModel.putSalon()
-                    onSaveClick()
+                   // onSaveClick()
                 }
             )
         }

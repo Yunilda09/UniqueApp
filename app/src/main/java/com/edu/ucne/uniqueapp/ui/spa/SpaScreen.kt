@@ -19,7 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SpaScreen(
-    spaId: Int,
+    spaId: Int ,
     viewModel: SpaViewModel = hiltViewModel(),
     onSaveClick: () -> Unit
 ) {
@@ -27,8 +27,11 @@ fun SpaScreen(
         viewModel.setSpa(spaId)
         0
     }
-    SpaBody(viewModel = viewModel) {
-        onSaveClick()
+    Column(Modifier.fillMaxWidth()) {
+
+        SpaBody(viewModel = viewModel){
+            onSaveClick()
+        }
     }
 }
 
@@ -63,8 +66,6 @@ fun SpaBody(
             ExtendedFloatingActionButton(
                 modifier = Modifier
                     .padding(8.dp),
-
-                //text = { Text("Guardar") },
                 content = {
                     Icon(
                         imageVector = Icons.Filled.Save,
@@ -72,7 +73,7 @@ fun SpaBody(
                     )
                 },
                 onClick = {
-                    //viewModel.putSpa()
+                    viewModel.putSpa()
                     onSaveClick()
                 }
             )

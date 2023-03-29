@@ -18,7 +18,8 @@ import com.edu.ucne.uniqueapp.data.remote.dto.SalonDto
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SalonListScreen(
-    onNewSalon: () -> Unit, viewModel: SalonViewModel = hiltViewModel(),
+    onNewSalon: () -> Unit,
+    viewModel: SalonViewModel = hiltViewModel(),
     onSalonClick: (Int) -> Unit
 ) {
     Scaffold(

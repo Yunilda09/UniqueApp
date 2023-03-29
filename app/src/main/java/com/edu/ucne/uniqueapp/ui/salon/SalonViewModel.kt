@@ -57,6 +57,7 @@ class SalonViewModel @Inject constructor(
     fun setSalon(id: Int) {
         salonId = id
         Limpiar()
+
         salonRepository.getSalonbyId(salonId).onEach { resultado ->
             when (resultado) {
                 is Resource.Loading -> {
@@ -80,16 +81,17 @@ class SalonViewModel @Inject constructor(
             }
         }.launchIn(viewModelScope)
     }
-    /* fun putSalon(){
+     fun putSalon(){
          viewModelScope.launch {
              salonRepository.putSalon(salonId, SalonDto(
+                 salonId = salonId,
                  salonServicio,
                  uiStateSalon.value.salon!!.precio,
                  uiStateSalon.value.salon!!.fecha,
-                 horario,
-                 salonId = salonId ))
+                 uiStateSalon.value.salon!!.horario
+                ))
          }
-         }*/
+         }
     init {
         salonRepository.getSalon().onEach { resultado ->
             when (resultado) {
