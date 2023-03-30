@@ -87,7 +87,7 @@ fun SpaRow(spa: SpaDto, onSpaClick: (Int) -> Unit) {
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.weight(3f)
                 )
-                Text(
+               /* Text(
                     text = spa.fecha.substring(0, 10),
                     style = MaterialTheme.typography.titleSmall,
                     textAlign = TextAlign.End,
@@ -98,7 +98,7 @@ fun SpaRow(spa: SpaDto, onSpaClick: (Int) -> Unit) {
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.weight(3f)
-                )
+                )*/
             }
         }
         Divider(Modifier.fillMaxWidth())

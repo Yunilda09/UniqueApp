@@ -69,8 +69,7 @@ class SalonViewModel @Inject constructor(
                     }
                     salonServicio = uiStateSalon.value.salon!!.salonServicio
                     uiStateSalon.value.salon!!.precio
-                    fecha = uiStateSalon.value.salon!!.fecha
-                    horario = uiStateSalon.value.salon!!.horario
+
 
                 }
                 is Resource.Error -> {
@@ -87,8 +86,7 @@ class SalonViewModel @Inject constructor(
                  salonId = salonId,
                  salonServicio,
                  uiStateSalon.value.salon!!.precio,
-                 uiStateSalon.value.salon!!.fecha,
-                 uiStateSalon.value.salon!!.horario
+
                 ))
          }
          }

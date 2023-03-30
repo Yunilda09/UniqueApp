@@ -71,8 +71,7 @@ class SpaViewModel @Inject constructor(
                     }
                     spaServicio = SpaUiSate.value.spa!!.spaServicio
                     SpaUiSate.value.spa!!.precio
-                    fecha = SpaUiSate.value.spa!!.fecha
-                    horario = SpaUiSate.value.spa!!.horario
+
 
                 }
                 is Resource.Error -> {
@@ -90,8 +89,7 @@ class SpaViewModel @Inject constructor(
                  spaId = spaId,
                  spaServicio,
                  SpaUiSate.value.spa!!.precio,
-                 SpaUiSate.value.spa!!.precio,
-                 SpaUiSate.value.spa!!.horario,
+
                   )
              )
          }

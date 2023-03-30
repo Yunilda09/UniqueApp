@@ -21,11 +21,11 @@ fun NavigationManager(navController: NavHostController) {
         navController = navController,
         startDestination = Screen.Start.route
     ) {
-        composable(Screen.Start.route) {
+       /* composable(Screen.Start.route) {
             HomeScreen(navController)
-        }
+        }*/
 
-       /* composable(route = Screen.SpaScreen.route + "/{id}",
+      /*  composable(route = Screen.SpaScreen.route + "/{id}",
             arguments = listOf(
                 navArgument("id"){type = NavType.IntType})
         ){capturar ->

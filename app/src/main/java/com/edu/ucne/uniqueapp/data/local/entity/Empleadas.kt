@@ -12,8 +12,7 @@ data class EmpleadasEntity(
     val nombre: String,
     val apellido: String,
     val telefono: String,
-    val fechaCreacion: String,
-    val fechaModificacion: String,
+    val descripcion: String,
     val estatus: String
 
 ) {
@@ -25,8 +24,7 @@ fun EmpleadasEntity.toEmpleadasDto(): EmpleadasDto {
         nombre = this.nombre,
         apellido = this.apellido,
         telefono = this.telefono,
-        fechaCreacion = this.fechaCreacion,
-        fechaModificacion = this.fechaModificacion,
+        descripcion = this.telefono,
         estatus = this.estatus
     )
 }

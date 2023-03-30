@@ -4,14 +4,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.edu.ucne.uniqueapp.data.remote.dto.SalonDto
 
-@Entity(tableName = "Personas")
+@Entity(tableName = "Salon")
 data class SalonEntity(
 @PrimaryKey(autoGenerate = true)
-val salonId: Int? = null,
-val salonServicio: String,
-val precio: String,
-val fecha: String,
-val horario: String,
+        val salonId: Int? = null,
+        val salonServicio: String,
+        val precio: String
 
 ) {
 
@@ -22,8 +20,7 @@ fun SalonEntity.toSalonDto(): SalonDto {
         salonId = this.salonId ?:0,
         salonServicio = this.salonServicio,
         precio = this.precio,
-        fecha = this.fecha,
-        horario = this.horario
+
     )
 }
 

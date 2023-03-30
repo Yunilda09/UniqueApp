@@ -85,7 +85,7 @@ fun SalonRow(salon: SalonDto, onSalonClick: (Int) -> Unit) {
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.weight(3f)
-                )
+                )/*
                 Text(
                     text = salon.fecha.substring(0, 10),
                     style = MaterialTheme.typography.titleSmall,
@@ -97,7 +97,7 @@ fun SalonRow(salon: SalonDto, onSalonClick: (Int) -> Unit) {
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.weight(3f)
-                )
+                )*/
             }
         }
         Divider(Modifier.fillMaxWidth())

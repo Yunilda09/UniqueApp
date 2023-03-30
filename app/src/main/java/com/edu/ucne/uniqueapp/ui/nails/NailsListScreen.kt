@@ -89,7 +89,7 @@ fun NailRow(nail: NailsDto, onNailClick: (Int) -> Unit) {
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.weight(3f)
                 )
-                Text(
+                /*Text(
                     text = nail.fecha.substring(0, 10),
                     style = MaterialTheme.typography.titleSmall,
                     textAlign = TextAlign.End,
@@ -100,7 +100,7 @@ fun NailRow(nail: NailsDto, onNailClick: (Int) -> Unit) {
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.weight(3f)
-                )
+                )*/
             }
         }
         Divider(Modifier.fillMaxWidth())

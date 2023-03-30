@@ -1,13 +1,16 @@
-package com.edu.ucne.uniqueapp.ui.nails
+package com.edu.ucne.uniqueapp.ui.cliente
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.edu.ucne.uniqueapp.data.remote.dto.ClientesDto
 import com.edu.ucne.uniqueapp.data.remote.dto.NailsDto
+import com.edu.ucne.uniqueapp.data.repository.ClientesRepositoryImp
 import com.edu.ucne.uniqueapp.data.repository.NailsRepositoryImp
 import com.edu.ucne.uniqueapp.data.util.Resource
+import com.edu.ucne.uniqueapp.ui.nails.NailsListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -16,65 +19,67 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
-data class NailsListState(
+data class ClienteListState(
     val isLoading: Boolean = false,
-    val nails: List<NailsDto> = emptyList(),
+    val cliente: List<ClientesDto> = emptyList(),
     val error: String = ""
 )
 
-data class NailsUiState(
+data class ClienteUiState(
     val isLoading: Boolean = false,
-    val nail: NailsDto? = null,
+    val cliente: ClientesDto? = null,
     val error: String = ""
 )
 
 @HiltViewModel
-class NailsViewModel @Inject constructor(
-    private val nailsRepository: NailsRepositoryImp
+class ClienteViewModel @Inject constructor(
+    private val clientesRepositoryImp: ClientesRepositoryImp
 
 ) : ViewModel() {
-    var nailsId by mutableStateOf(0)
-    var nailsServicio by mutableStateOf("")
-    var precio by mutableStateOf("")
+    var clienteId by mutableStateOf(0)
+    var nombre by mutableStateOf("")
+    var apellido by mutableStateOf("")
+    var telefono by mutableStateOf("")
     var fecha by mutableStateOf("")
     var horario by mutableStateOf("")
 
 
-    val opcionesnailsServicio = listOf("Uñas Resina", "Uñas de gel", "Uñas esculpidas")
-
-    var uiState = MutableStateFlow(NailsListState())
+    var uiState = MutableStateFlow(ClienteListState())
         private set
 
-    var uiStateNail = MutableStateFlow(NailsUiState())
+    var uiStateCliente = MutableStateFlow(ClienteUiState())
         private set
 
     private fun Limpiar() {
-        nailsServicio = ""
-        precio = ""
+        nombre = ""
+        apellido = ""
+        telefono=""
         fecha = ""
         horario = ""
     }
 
-    fun setNail(id: Int) {
-        nailsId = id
+    fun setCliente(id: Int) {
+        clienteId = id
         Limpiar()
 
-        nailsRepository.getNailsbyId(nailsId).onEach { result ->
+        clientesRepositoryImp.getClientesbyId(clienteId).onEach { result ->
             when (result) {
                 is Resource.Loading -> {
-                    uiStateNail.update { it.copy(isLoading = true) }
+                    uiStateCliente.update { it.copy(isLoading = true) }
                 }
                 is Resource.Success -> {
-                    uiStateNail.update {
-                        it.copy(nail = result.data)
+                    uiStateCliente.update {
+                        it.copy(cliente = result.data)
                     }
-                    nailsServicio = uiStateNail.value.nail!!.nailsServicio
-                    uiStateNail.value.nail!!.precio
+                    nombre = nombre
+                    apellido = apellido
+                    telefono = uiStateCliente.value.cliente!!.telefono
+                    fecha = uiStateCliente.value.cliente!!.fecha
+                    horario = uiStateCliente.value.cliente!!.horario
 
                 }
                 is Resource.Error -> {
-                    uiStateNail.update {
+                    uiStateCliente.update {
                         it.copy(error = result.message ?: "Error desconocido")
                     }
                 }
@@ -83,26 +88,28 @@ class NailsViewModel @Inject constructor(
     }
     fun putNail() {
         viewModelScope.launch {
-            nailsRepository.putNails(
-                nailsId, NailsDto(
-                    nailsId = nailsId,
-                    nailsServicio,
-                    uiStateNail.value.nail!!.precio,
-
+            clientesRepositoryImp.putClientes(
+                clienteId, ClientesDto(
+                    clienteId = clienteId,
+                    nombre,
+                    apellido,
+                    uiStateCliente.value.cliente!!.telefono,
+                    uiStateCliente.value.cliente!!.fecha,
+                    uiStateCliente.value.cliente!!.horario,
                 )
             )
         }
     }
 
     init {
-        nailsRepository.getNails().onEach { result ->
+        clientesRepositoryImp.getClientes().onEach { result ->
             when (result) {
                 is Resource.Loading -> {
                     uiState.update { it.copy(isLoading = true) }
                 }
                 is Resource.Success -> {
                     uiState.update {
-                        it.copy(nails = result.data ?: emptyList())
+                        it.copy(cliente = result.data ?: emptyList())
                     }
                 }
                 is Resource.Error -> {

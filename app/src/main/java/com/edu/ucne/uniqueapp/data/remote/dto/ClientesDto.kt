@@ -5,8 +5,7 @@ data class ClientesDto(
     val nombre: String,
     val apellido: String,
     val telefono: String,
-    val fechaCreacion: String,
-    val fechaModificacion: String,
-    val estatus: String
+    val fecha: String,
+    val horario: String
 
 )
