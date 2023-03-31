@@ -22,14 +22,17 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen() {
-    Column(modifier = Modifier.fillMaxHeight()) {
+    Column(
+        modifier = Modifier
+            .fillMaxHeight()
+            .background(Color (0xFFFFF3F5) )) {
         Image(painter = painterResource(id = R.drawable.salon_and_spa), contentDescription = "header",
             modifier = Modifier.align(Alignment.CenterHorizontally))
-        Spacer(modifier = Modifier.padding(8.dp))
+        Spacer(modifier = Modifier.padding(16.dp))
         Text(text = "Date un tiempo para ti",
             modifier = Modifier.align(Alignment.CenterHorizontally),
             color = Color(0xFFC45559))
-        Spacer(modifier = Modifier.padding(4.dp))
+        Spacer(modifier = Modifier.padding(8.dp))
         Inicio()
         Spacer(modifier = Modifier.padding(8.dp))
         CitasProximas()
@@ -38,25 +41,30 @@ fun HomeScreen() {
 
 @Composable
 fun Inicio(){
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Button(onClick = { /*TODO*/ },
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFFEDEE2),
-                contentColor = Color(0xFFC45559))
+    Column(modifier = Modifier.fillMaxWidth(),) {
+            Button(
+                onClick = {  },
+               modifier = Modifier.align(Alignment.CenterHorizontally),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFFEDEE2),
+                    contentColor = Color(0xFFC45559)
+                )
             ) {
-            Text(text = "Crear cita")
-        }
-        Button(onClick = { /*TODO*/ },
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFC3ECDE),
-                contentColor = Color(0xFFC45559))
-        ){
-            Text(text = "Ver mis citas")
+                Text(text = "Crear cita")
+            }
+            Button(
+                onClick = {  },
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFC3ECDE),
+                    contentColor = Color(0xFFC45559)
+                )
+            ) {
+                Text(text = "Ver mis citas")
+            }
         }
     }
-}
+
 @Composable
 fun CitasProximas(){
     Column(modifier = Modifier.fillMaxWidth()) {
