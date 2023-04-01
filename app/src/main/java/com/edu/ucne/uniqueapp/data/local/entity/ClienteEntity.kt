@@ -10,9 +10,10 @@ data class ClienteEntity(
     val clienteId: Int? = null,
     val nombre: String,
     val apellido: String,
-    val telefono: String,
-    val fecha: String,
-    val horario: String
+    val telefono: Double,
+    val email: String,
+    val clave: String
+
 
 ) {
 
@@ -24,8 +25,7 @@ fun ClienteEntity.toClientesDto(): ClientesDto {
         nombre = this.nombre,
         apellido = this.apellido,
         telefono = this.telefono,
-        fecha = this.fecha,
-        horario = this.horario
-
+        email = this.email,
+        clave = this.clave
     )
 }

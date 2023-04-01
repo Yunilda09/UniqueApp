@@ -16,52 +16,41 @@ interface UniqueApi {
     @DELETE("/api/Clientes/{id}")
     suspend fun deleteClientes(@Path("id") id: Int)
 
-    // Empleadas
-    @GET("/api/Empleadas")
-    suspend fun getEmpleadas(): List<EmpleadasDto>
-    @GET("/api/Empleadas/{id}")
-    suspend fun getEmpleadasbyId(@Path("id") id: Int):EmpleadasDto
-    @POST("/api/Empleadas")
-    suspend fun postEmpleadas(empleadasDto: EmpleadasDto)
-    @PUT("/api/Empleadas/{id}")
-    suspend fun putEmpleadas(@Path("id") id: Int, @Body empleadasDto: EmpleadasDto):Response<Unit>
-    @DELETE("/api/Empleadas/{id}")
-    suspend fun deleteEmpleadas(@Path("id") id: Int)
+    // TipoServicio
+    @GET("/api/TipoServicios")
+    suspend fun getTipoServicios(): List<TipoServiciosDto>
+    @GET("/api/TipoServicios/{id}")
+    suspend fun getTipoServiciobyId(@Path("id") id: Int):TipoServiciosDto
+    @POST("/api/TipoServicios")
+    suspend fun postTipoServicios(tipoServiciosDto: TipoServiciosDto)
+    @PUT("/api/TipoServicios/{id}")
+    suspend fun putTipoServicios(@Path("id") id: Int, @Body tipoServiciosDto: TipoServiciosDto):Response<Unit>
+    @DELETE("/api/TipoServicios/{id}")
+    suspend fun deleteTipoServicios(@Path("id") id: Int)
 
-    //NailsServicios
-   @GET ("/api/NailsServicios")
-   suspend fun getNails(): List<NailsDto>
-   @GET("/api/NailsServicios/{id}")
-   suspend fun getNailsbyId(@Path("id") id: Int):NailsDto
-   @POST("/api/NailsServicios")
-   suspend fun postNails(nailsDto: NailsDto)
-   @PUT("/api/NailsServicios/{id}")
-   suspend fun putNails(@Path("id") id:Int, @Body nailsDto: NailsDto): Response<Unit>
-   @DELETE("/api/NailsServicios/{id}")
-   suspend fun deleteNails(@Path("id") id:Int)
+    //Servicios
+   @GET ("/api/Servicios")
+   suspend fun getServicio(): List<ServiciosDto>
+   @GET("/api/Servicios/{id}")
+   suspend fun getServiciosbyId(@Path("id") id: Int):ServiciosDto
+   @POST("/api/Servicios")
+   suspend fun postServicios(serviciosDto: ServiciosDto)
+   @PUT("/api/Servicios/{id}")
+   suspend fun putServicios(@Path("id") id:Int, @Body serviciosDto: ServiciosDto): Response<Unit>
+   @DELETE("/api/Servicios/{id}")
+   suspend fun deleteServicios(@Path("id") id:Int)
 
-   //SpaServicios
-   @GET("/api/SpaServicios")
-   suspend fun getSpa(): List<SpaDto>
-   @GET("/api/SpaServicios/{id}")
-   suspend fun getSpabyId(@Path("id") id: Int): SpaDto
-   @POST("/api/SpaServicios")
-   suspend fun postSpa(nailsDto: NailsDto)
-   @PUT("/api/SpaServicios/{id}")
-   suspend fun putSpa(@Path("id") id: Int, @Body spaDto: SpaDto): Response<Unit>
-   @DELETE("/api/SpaServicios/{id}")
-   suspend fun deleteSpa(@Path("id") id: Int)
+   //Cita
+   @GET("/api/Cita")
+   suspend fun getCita(): List<CitaDto>
+   @GET("/api/Cita/{id}")
+   suspend fun getCitabyId(@Path("id") id: Int): CitaDto
+   @POST("/api/Cita")
+   suspend fun postCita(citaDto: CitaDto)
+   @PUT("/api/Cita/{id}")
+   suspend fun putCita(@Path("id") id: Int, @Body citaDto: CitaDto): Response<Unit>
+   @DELETE("/api/Cita/{id}")
+   suspend fun deleteCita(@Path("id") id: Int)
 
-   //SalonServicios
-   @GET("/api/SalonServicios")
-   suspend fun getSalon(): List<SalonDto>
-   @GET("/api/SalonServicios/{id}")
-   suspend fun getSalonbyId(@Path("id") id: Int): SalonDto
-   @POST("/api/SalonServicios")
-   suspend fun postSalon(salonDto: SalonDto)
-   @PUT("/api/SalonServicios")
-   suspend fun putSalon(@Path("id") id: Int, @Body salonDto: SalonDto): Response<Unit>
-   @DELETE("/api/SalonServicios")
-   suspend fun deleteSalon(@Path("id") id: Int)
 
 }

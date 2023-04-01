@@ -1,7 +1,7 @@
 package com.edu.ucne.uniqueapp.data.repository
 
 import com.edu.ucne.uniqueapp.data.remote.UniqueApi
-import com.edu.ucne.uniqueapp.data.remote.dto.SpaDto
+import com.edu.ucne.uniqueapp.data.remote.dto.ServiciosDto
 import com.edu.ucne.uniqueapp.data.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -9,18 +9,18 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class SpaRepositoryImp @Inject constructor(
+class ServicioRepositoryImp @Inject constructor(
     private val api: UniqueApi
 
-): Spa1Repository {
+): Servicio1Repository {
 
-    override fun getSpa(): Flow<Resource<List<SpaDto>>> = flow {
+    override fun getServicios(): Flow<Resource<List<ServiciosDto>>> = flow {
         try {
             emit(Resource.Loading())
 
-            val spa = api.getSpa()
+            val servicio = api.getServicio()
 
-            emit (Resource.Success(spa))
+            emit (Resource.Success(servicio))
         } catch (e: HttpException) {
 
             emit(Resource.Error(e.message ?: "Error HTTP GENERAL"))
@@ -28,16 +28,16 @@ class SpaRepositoryImp @Inject constructor(
             emit(Resource.Error(e.message ?: "Verificar tu conexion a internet"))
         }
     }
-    override suspend fun putSpa(id: Int, spaDto: SpaDto){
-        api.putSpa(id,spaDto)
+    override suspend fun putServicios(id: Int, serviciosDto: ServiciosDto){
+        api.putServicios(id, serviciosDto)
     }
-    override fun getSpabyId(id: Int) : Flow<Resource<SpaDto>> = flow {
+    override fun getServiciobyId(id: Int) : Flow<Resource<ServiciosDto>> = flow {
         try {
             emit(Resource.Loading())
 
-            val spa = api.getSpabyId(id)
+            val servicio = api.getServiciosbyId(id)
 
-            emit (Resource.Success(spa))
+            emit (Resource.Success(servicio))
         } catch (e: HttpException) {
 
             emit(Resource.Error(e.message ?: "Error HTTP GENERAL"))
@@ -47,5 +47,5 @@ class SpaRepositoryImp @Inject constructor(
     }
 
 
-    override suspend fun deleteSpa(id: Int) = api.deleteSpa(id)
+    override suspend fun deleteServicios(id: Int) = api.deleteServicios(id)
 }

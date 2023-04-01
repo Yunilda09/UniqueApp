@@ -6,11 +6,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.edu.ucne.uniqueapp.data.remote.dto.ClientesDto
-import com.edu.ucne.uniqueapp.data.remote.dto.NailsDto
 import com.edu.ucne.uniqueapp.data.repository.ClientesRepositoryImp
-import com.edu.ucne.uniqueapp.data.repository.NailsRepositoryImp
 import com.edu.ucne.uniqueapp.data.util.Resource
-import com.edu.ucne.uniqueapp.ui.nails.NailsListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -40,8 +37,8 @@ class ClienteViewModel @Inject constructor(
     var nombre by mutableStateOf("")
     var apellido by mutableStateOf("")
     var telefono by mutableStateOf("")
-    var fecha by mutableStateOf("")
-    var horario by mutableStateOf("")
+    var email by mutableStateOf("")
+    var clave by mutableStateOf("")
 
 
     var uiState = MutableStateFlow(ClienteListState())
@@ -54,8 +51,8 @@ class ClienteViewModel @Inject constructor(
         nombre = ""
         apellido = ""
         telefono=""
-        fecha = ""
-        horario = ""
+        email = ""
+        clave = ""
     }
 
     fun setCliente(id: Int) {
@@ -73,9 +70,9 @@ class ClienteViewModel @Inject constructor(
                     }
                     nombre = nombre
                     apellido = apellido
-                    telefono = uiStateCliente.value.cliente!!.telefono
-                    fecha = uiStateCliente.value.cliente!!.fecha
-                    horario = uiStateCliente.value.cliente!!.horario
+                    telefono = telefono
+                    email = uiStateCliente.value.cliente!!.email
+                    clave = uiStateCliente.value.cliente!!.clave
 
                 }
                 is Resource.Error -> {
@@ -94,8 +91,8 @@ class ClienteViewModel @Inject constructor(
                     nombre,
                     apellido,
                     uiStateCliente.value.cliente!!.telefono,
-                    uiStateCliente.value.cliente!!.fecha,
-                    uiStateCliente.value.cliente!!.horario,
+                    uiStateCliente.value.cliente!!.email,
+                    uiStateCliente.value.cliente!!.clave,
                 )
             )
         }
