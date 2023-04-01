@@ -14,63 +14,79 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.edu.ucne.uniqueapp.R
 import com.edu.ucne.uniqueapp.data.util.Screen
+import com.edu.ucne.uniqueapp.ui.citas.CitasViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(viewModel: CitasViewModel = hiltViewModel(),
+onSaveClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxHeight()
-            .background(Color (0xFFFFF3F5) )) {
-        Image(painter = painterResource(id = R.drawable.salon_and_spa), contentDescription = "header",
-            modifier = Modifier.align(Alignment.CenterHorizontally))
+            .background(Color(0xFFFFF3F5))
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.salon_and_spa), contentDescription = "header",
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
         Spacer(modifier = Modifier.padding(16.dp))
-        Text(text = "Date un tiempo para ti",
+        Text(
+            text = "Date un tiempo para ti",
             modifier = Modifier.align(Alignment.CenterHorizontally),
-            color = Color(0xFFC45559))
+            color = Color(0xFFC45559)
+        )
         Spacer(modifier = Modifier.padding(8.dp))
-        Inicio()
+        Inicio(viewModel = viewModel){
+            onSaveClick()
+        }
         Spacer(modifier = Modifier.padding(8.dp))
         CitasProximas()
     }
 }
 
 @Composable
-fun Inicio(){
-    Column(modifier = Modifier.fillMaxWidth(),) {
-            Button(
-                onClick = {  },
-               modifier = Modifier.align(Alignment.CenterHorizontally),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFFEDEE2),
-                    contentColor = Color(0xFFC45559)
-                )
-            ) {
-                Text(text = "Crear cita")
-            }
-            Button(
-                onClick = {  },
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFC3ECDE),
-                    contentColor = Color(0xFFC45559)
-                )
-            ) {
-                Text(text = "Ver mis citas")
-            }
+fun Inicio(viewModel: CitasViewModel,
+            onSaveClick:() -> Unit
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Button(
+            onClick = { viewModel.putCita()
+                      onSaveClick()},
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFFEDEE2),
+                contentColor = Color(0xFFC45559)
+            )
+        ) {
+            Text(text = "Crear cita")
+        }
+        Button(
+            onClick = { },
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFC3ECDE),
+                contentColor = Color(0xFFC45559)
+            )
+        ) {
+            Text(text = "Ver mis citas")
         }
     }
+}
 
 @Composable
-fun CitasProximas(){
+fun CitasProximas() {
     Column(modifier = Modifier.fillMaxWidth()) {
-        Text(text = "Proximas Citas",
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                color = Color(0xFFC45559))
+        Text(
+            text = "Proximas Citas",
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            color = Color(0xFFC45559)
+        )
     }
 }
 

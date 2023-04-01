@@ -13,8 +13,8 @@ data class CitaEntity(
     val clienteId: Int,
     val nombre: String,
     val apellido: String,
-    val fecha: Date,
-    val hora: Date
+    val fecha: String,
+    val hora: String
 
     ) {
 
