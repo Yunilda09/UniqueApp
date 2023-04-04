@@ -15,13 +15,24 @@ import com.edu.ucne.uniqueapp.ui.citas.CitasScreen
 fun NavigationManager(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Screen.HomeScreen.route
+        startDestination = Screen.Inicio.route
     ) {
+        composable(Screen.Inicio.route) {
+            InicioScreen(navController = navController){
+                navController.navigate(Screen.CitaScreen.route + "/0")
+            }
+        }
+          composable( route = Screen.CitaScreen.route + "/{id}",
+                arguments = listOf(navArgument("id") { type = NavType.IntType }))
+            { navEntry ->
+                val citasId = navEntry.arguments?.getInt("id") ?:0
+                CitasScreen(citasId){
+                    navController.navigateUp()
+                }
+            }
 
-      /*  composable(Screen.HomeScreen.route) {
-            HomeScreen(navController)
-        }*/
-        /*composable(route = Screen.HomeScreen.route + "/{id}",
+
+            /*composable(route = Screen.HomeScreen.route + "/{id}",
             arguments = listOf(
                 navArgument("id"){type = NavType.IntType})
             ){capturar ->
@@ -31,7 +42,7 @@ fun NavigationManager(navController: NavHostController) {
             }*/
 
 
-      /*  composable(route = Screen.CitasScreen.route + "/{id}",
+            /*  composable(route = Screen.CitasScreen.route + "/{id}",
             arguments = listOf(
                 navArgument("id"){type = NavType.IntType})
         ){capturar ->
@@ -65,7 +76,7 @@ fun NavigationManager(navController: NavHostController) {
                 navController.navigate(Screen.CitasScreen.route + "/${id}")
             }
         }*/
-        /*composable(
+            /*composable(
             route = Screen.SalonList.route
         ) {
             SalonListScreen(onNewSalon = { }) { id ->
@@ -73,15 +84,16 @@ fun NavigationManager(navController: NavHostController) {
             }
         }
 
-        composable(
+      /*  composable(
             route = Screen.NailsList.route
         ) {
             NailsListScreen(onNewNail = { }) { id ->
                 navController.navigate(Screen.NailsScreen.route + "/${id}")
             }
-        }
+        }*/
         */
+
+        }
 
     }
 
-}

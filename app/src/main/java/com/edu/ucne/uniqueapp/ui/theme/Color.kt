@@ -13,3 +13,5 @@ val Pink40 = Color(0xFF7D5260)
 val RosaClaro = Color(0xFFFFF3F5)
 val  Rosa= Color(0xFFECC9CF)
 val RosaPalo = Color(0xFFE4B8C6)
+
+val RosaSemiClaro = Color(0xFFFFE5E9)

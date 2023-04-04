@@ -11,9 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
-import com.edu.ucne.uniqueapp.ui.HomeScreen
 import com.edu.ucne.uniqueapp.ui.NavigationManager
-import com.edu.ucne.uniqueapp.ui.citas.CitasListScreen
 import com.edu.ucne.uniqueapp.ui.citas.CitasScreen
 import com.edu.ucne.uniqueapp.ui.theme.UniqueAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,8 +28,9 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    HomeScreen(onSaveClick = {})
-                    //NavigationManager(navController = navController)
+                   //CitasScreen(onsaveClick = {}, citaId = 0)
+                    //HomeScreen(onSaveClick = {})
+                    NavigationManager(navController = navController)
                 }
             }
         }

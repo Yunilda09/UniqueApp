@@ -1,14 +1,18 @@
 package com.edu.ucne.uniqueapp.ui.citas
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -19,15 +23,18 @@ import androidx.hilt.navigation.compose.hiltViewModel
 fun CitasScreen(
     citaId: Int,
     viewModel: CitasViewModel = hiltViewModel(),
-    onsaveClick:() -> Unit
-){
+    onsaveClick:() -> Unit,
+){ Column(modifier = Modifier.fillMaxHeight().background(Color(0xFFFFF3F5))) {
+
+
     remember {
         viewModel.setCita(citaId)
         0
     }
-    CitasBody(viewModel = viewModel){
+    CitasBody(viewModel = viewModel) {
         onsaveClick()
     }
+}
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -35,7 +42,7 @@ fun CitasScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 fun CitasBody(
     viewModel: CitasViewModel,
-    onsaveClick: () -> Unit
+    onSaveClick: () -> Unit
 ){
    var expanded by remember {
         mutableStateOf(false)
@@ -58,6 +65,18 @@ fun CitasBody(
                 }
             )
         },
+        floatingActionButton = {
+            ExtendedFloatingActionButton(
+                modifier = Modifier
+                    .padding(8.dp),
+
+                content = { Icon(imageVector = Icons.Filled.Save, contentDescription = "Save") },
+                onClick = {
+                    viewModel.putCita()
+                    onSaveClick()
+                }
+            )
+        }
     ) {
 
         Column(
@@ -83,6 +102,8 @@ fun CitasBody(
                 onValueChange = { viewModel.apellido = it },
                 label = { Text("Apellidos") }
             )
+
+
             OutlinedTextField(
                 modifier = Modifier
                     .padding(8.dp)
@@ -91,7 +112,7 @@ fun CitasBody(
                 value = viewModel.servicios,
                 enabled = false, readOnly = true,
                 onValueChange = { viewModel.servicios = it },
-                label = { Text("Estatus") }
+                label = { Text("Servicios") }
             )
             DropdownMenu(
                 expanded = expanded,
@@ -123,6 +144,14 @@ fun CitasBody(
                 value = viewModel.fecha,
                 onValueChange = { viewModel.fecha = it },
                 label = { Text("Fecha") }
+            )
+            OutlinedTextField(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth(),
+                value = viewModel.hora,
+                onValueChange = { viewModel.hora = it },
+                label = { Text("Horario") }
             )
 
         }

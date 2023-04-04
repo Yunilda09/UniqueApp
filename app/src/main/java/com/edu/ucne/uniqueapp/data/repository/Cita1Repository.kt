@@ -9,4 +9,5 @@ interface Cita1Repository {
     suspend fun putCita(id: Int, citaDto: CitaDto)
     fun getCitabyId(id: Int): Flow<Resource<CitaDto>>
     suspend fun deleteCita(id: Int)
+    fun getCitasProximas(id: Int ): Flow<Resource<List<CitaDto>>>
 }

@@ -41,7 +41,7 @@ class CitasViewModel @Inject constructor(
     var fecha by mutableStateOf("")
     var hora by mutableStateOf("")
 
-    val opcionesServicios = listOf("")
+    val opcionesServicios = listOf("Spa", "Salon", "Nails")
     var uiState = MutableStateFlow(CitasListState())
         private set
     var uiStateCita = MutableStateFlow(CitasState())
@@ -84,6 +84,7 @@ class CitasViewModel @Inject constructor(
                         citaId = citaId,
                         clienteId = clienteId,
                         servicioId = servicioId,
+                        estadoId = 1,
                         nombre,
                         apellido,
                         fecha,

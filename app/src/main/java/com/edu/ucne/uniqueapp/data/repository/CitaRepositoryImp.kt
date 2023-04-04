@@ -50,4 +50,18 @@ class CitaRepositoryImp @Inject constructor(
 
 
     override suspend fun deleteCita(id: Int) = api.deleteCita(id)
+    override fun getCitasProximas(id: Int): Flow<Resource<List<CitaDto>>> = flow {
+        try {
+            emit(Resource.Loading())
+
+            val cita = api.getCitasProxima(id)
+
+            emit(Resource.Success(cita))
+        } catch (e: HttpException) {
+
+            emit(Resource.Error(e.message ?: "Error HTTP GENERAL"))
+        } catch (e: IOException) {
+            emit(Resource.Error(e.message ?: "Verificar tu conexion a internet"))
+        }
+    }
 }

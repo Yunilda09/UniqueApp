@@ -1,6 +1,5 @@
 package com.edu.ucne.uniqueapp.ui
 
-import android.widget.Space
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -10,22 +9,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.edu.ucne.uniqueapp.R
-import com.edu.ucne.uniqueapp.data.util.Screen
+import com.edu.ucne.uniqueapp.data.remote.dto.CitaDto
 import com.edu.ucne.uniqueapp.ui.citas.CitasViewModel
-import kotlinx.coroutines.launch
+import com.edu.ucne.uniqueapp.ui.componentes.CitasRow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(viewModel: CitasViewModel = hiltViewModel(),
-onSaveClick: () -> Unit) {
+fun InicioScreen(navController: NavHostController,
+    viewModel: CitasViewModel = hiltViewModel(),
+                 onSaveClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxHeight()
@@ -56,8 +55,7 @@ fun Inicio(viewModel: CitasViewModel,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         Button(
-            onClick = { viewModel.putCita()
-                      onSaveClick()},
+            onClick = onSaveClick,
             modifier = Modifier.align(Alignment.CenterHorizontally),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFFFEDEE2),
@@ -87,6 +85,8 @@ fun CitasProximas() {
             modifier = Modifier.align(Alignment.CenterHorizontally),
             color = Color(0xFFC45559)
         )
+      /*  CitasRow(citaDto = CitaDto(0, 0, 0, 0, "", "","",""),
+            onCitaClick = {})*/
     }
 }
 

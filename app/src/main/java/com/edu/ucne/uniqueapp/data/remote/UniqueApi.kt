@@ -9,6 +9,8 @@ interface UniqueApi {
     suspend fun getClientes(): List<ClientesDto>
     @GET("/api/Clientes/{id}")
     suspend fun getClientesbyId(@Path("id") id: Int):ClientesDto
+    @GET("/api/Clientes/{email},{clave}")
+    suspend fun getClienteByLogin(@Path("email") email: String, @Path("clave") clave: String): ClientesDto
     @POST("/api/Clientes")
     suspend fun postClientes(clientesDto: ClientesDto)
     @PUT("/api/Clientes/{id}")
@@ -45,6 +47,8 @@ interface UniqueApi {
    suspend fun getCita(): List<CitaDto>
    @GET("/api/Cita/{id}")
    suspend fun getCitabyId(@Path("id") id: Int): CitaDto
+   @GET("/api/Citas/Top3CitasByClienteId/{ClienteId}")
+   suspend fun getCitasProxima(@Path("ClienteId") clienteId: Int): List<CitaDto>
    @POST("/api/Cita")
    suspend fun postCita(citaDto: CitaDto)
    @PUT("/api/Cita/{id}")
