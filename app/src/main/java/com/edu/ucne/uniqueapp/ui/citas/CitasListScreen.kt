@@ -1,10 +1,13 @@
 package com.edu.ucne.uniqueapp.ui.citas
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
+import androidx.compose.material3.DividerDefaults.color
+import androidx.compose.material3.SnackbarDefaults.color
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -14,6 +17,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.edu.ucne.uniqueapp.data.remote.dto.CitaDto
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -50,7 +55,10 @@ fun CitasListScreen (
 
 @Composable
 fun CitasListBody(citaList: List<CitaDto>, onCitaClick: (Int) -> Unit) {
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(modifier = Modifier.fillMaxWidth()
+        .background(Color(0xFFFFF3F5))
+       // color = Color(0xFFC45559)
+    ) {
         LazyColumn {
             items(citaList) { ticket ->
                 CitaRow(ticket) {
