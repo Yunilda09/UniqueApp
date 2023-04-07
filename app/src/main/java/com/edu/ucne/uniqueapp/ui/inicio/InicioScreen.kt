@@ -53,7 +53,8 @@ fun InicioScreen(navController: NavHostController,
 fun Inicio(viewModel: CitasViewModel,
             onSaveClick:() -> Unit
 ) {
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(modifier = Modifier.fillMaxWidth()
+    ) {
         Button(
             onClick = onSaveClick,
             modifier = Modifier.align(Alignment.CenterHorizontally),

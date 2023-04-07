@@ -19,7 +19,7 @@ import kotlin.math.absoluteValue
 
 
 @Composable
-fun CitasRow(citaDto: CitaDto, onCitaClick: (Int) -> Unit) {
+fun CitasRow(onCitaSwipe:(Int) -> Unit, citaDto: CitaDto, onCitaClick: (Int) -> Unit) {
     var offset by remember { mutableStateOf(0f) }
 
    Card(modifier = Modifier
@@ -29,7 +29,8 @@ fun CitasRow(citaDto: CitaDto, onCitaClick: (Int) -> Unit) {
        .scrollable(orientation = Orientation.Horizontal, state = rememberScrollableState { scroll ->
            offset += scroll
            if (offset.absoluteValue > 49) {
-               "cancelarCita"
+
+               onCitaSwipe(citaDto.citaId)
            }
            scroll
        }),
