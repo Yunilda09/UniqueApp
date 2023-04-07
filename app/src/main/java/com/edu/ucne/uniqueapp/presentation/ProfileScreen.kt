@@ -1,6 +1,5 @@
 package com.edu.ucne.uniqueapp.presentation
 
-/*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.*
@@ -51,4 +50,4 @@ fun ProfileScreen(
             Text(text = "Sign out")
         }
     }
-}*/
+}
