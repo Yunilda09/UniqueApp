@@ -29,8 +29,8 @@ fun CitasRow(onCitaSwipe:(Int) -> Unit, citaDto: CitaDto, onCitaClick: (Int) -> 
        .scrollable(orientation = Orientation.Horizontal, state = rememberScrollableState { scroll ->
            offset += scroll
            if (offset.absoluteValue > 49) {
-
-               onCitaSwipe(citaDto.citaId)
+                if(citaDto.estadoId == 1 )
+                    onCitaSwipe(citaDto.citaId)
            }
            scroll
        }),
@@ -40,7 +40,7 @@ fun CitasRow(onCitaSwipe:(Int) -> Unit, citaDto: CitaDto, onCitaClick: (Int) -> 
        Column(modifier = Modifier.padding(2.dp)) {
            Row(horizontalArrangement = Arrangement.SpaceBetween) {
                Text(text = citaDto.nombre+" "+citaDto.apellido)
-               Text(text = citaDto.fecha.substring(0, 11))
+               Text(text = citaDto.fecha.substring(0, 10))
 
            }
            Row(horizontalArrangement = Arrangement.SpaceBetween) {

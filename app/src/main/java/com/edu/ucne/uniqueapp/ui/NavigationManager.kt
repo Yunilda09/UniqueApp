@@ -18,8 +18,9 @@ fun NavigationManager(navController: NavHostController) {
         startDestination = Screen.Inicio.route
     ) {
         composable(Screen.Inicio.route) {
-            InicioScreen(navController = navController){
-                navController.navigate(Screen.CitaScreen.route + "/0")
+            InicioScreen(navController = navController, onSaveClick = {
+                navController.navigate(Screen.CitaScreen.route + "/0")}){
+                navController.navigate(Screen.CitaScreen.route + "/$it")
             }
         }
           composable( route = Screen.CitaScreen.route + "/{id}",

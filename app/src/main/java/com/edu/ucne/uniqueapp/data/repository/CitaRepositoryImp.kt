@@ -14,11 +14,11 @@ class CitaRepositoryImp @Inject constructor(
 
 ): Cita1Repository {
 
-    override fun getCitas(): Flow<Resource<List<CitaDto>>> = flow {
+    override fun getCitas(id: Int): Flow<Resource<List<CitaDto>>> = flow {
         try {
             emit(Resource.Loading())
 
-            val cita = api.getCita()
+            val cita = api.getCita(id)
 
             emit(Resource.Success(cita))
         } catch (e: HttpException) {
@@ -64,4 +64,9 @@ class CitaRepositoryImp @Inject constructor(
             emit(Resource.Error(e.message ?: "Verificar tu conexion a internet"))
         }
     }
+
+    override suspend fun postCita(citaDto: CitaDto) = api.postCita(citaDto)
+
+
+
 }

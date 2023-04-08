@@ -4,13 +4,13 @@ import java.util.Date
 
 data class CitaDto(
     val citaId: Int= 0,
-    val clienteId: Int,
-    val servicioId: Int,
-    val estadoId: Int,
-    val nombre: String,
-    val apellido:String,
-    val fecha: String,
-    val hora: String
+    val clienteId: Int = 0,
+    val servicioId: Int = 0,
+    val estadoId: Int = 0,
+    val nombre: String = "",
+    val apellido:String = "",
+    val fecha: String = "",
+
 
 
 )

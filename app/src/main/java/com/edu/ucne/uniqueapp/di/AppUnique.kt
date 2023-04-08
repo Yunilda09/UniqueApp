@@ -27,7 +27,7 @@ object AppModule {
     @Provides
     fun providesUniqueApi(moshi: Moshi): UniqueApi {
         return Retrofit.Builder()
-            .baseUrl("https://uniqueapii.azurewebsites.net/")
+            .baseUrl("https://uniqueapi.azurewebsites.net")
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
             .create(UniqueApi::class.java)

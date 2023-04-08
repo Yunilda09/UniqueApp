@@ -1,6 +1,11 @@
 package com.edu.ucne.uniqueapp.ui.citas
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
+import android.os.Build
+import android.widget.DatePicker
+import android.widget.TimePicker
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -13,18 +18,24 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.edu.ucne.uniqueapp.ui.componentes.DatePickerDialog
+import com.edu.ucne.uniqueapp.ui.componentes.TimePickerDialog
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CitasScreen(
     citaId: Int,
     viewModel: CitasViewModel = hiltViewModel(),
     onsaveClick:() -> Unit,
-){ Column(modifier = Modifier.fillMaxHeight().background(Color(0xFFFFF3F5))) {
+){ Column(modifier = Modifier
+    .fillMaxHeight()
+    .background(Color(0xFFFFF3F5))) {
 
 
     remember {
@@ -37,6 +48,7 @@ fun CitasScreen(
 }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,7 +59,6 @@ fun CitasBody(
    var expanded by remember {
         mutableStateOf(false)
     }
-
 
     Scaffold(
         modifier = Modifier
@@ -61,6 +72,7 @@ fun CitasBody(
                         textAlign = TextAlign.Center,
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.headlineLarge
+
                     )
                 }
             )
@@ -72,7 +84,7 @@ fun CitasBody(
 
                 content = { Icon(imageVector = Icons.Filled.Save, contentDescription = "Save") },
                 onClick = {
-                    viewModel.putCita()
+                    viewModel.guardar()
                     onSaveClick()
                 }
             )
@@ -81,8 +93,9 @@ fun CitasBody(
 
         Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .padding(it)
+                .background(Color(0xFFFFF3F5))
         ) {
 
             OutlinedTextField(
@@ -103,7 +116,6 @@ fun CitasBody(
                 label = { Text("Apellidos") }
             )
 
-
             OutlinedTextField(
                 modifier = Modifier
                     .padding(8.dp)
@@ -122,14 +134,15 @@ fun CitasBody(
                     .padding(horizontal = 8.dp)
 
             ) {
-                viewModel.opcionesServicios.forEach { opcion ->
+                val servicios by viewModel.uiStateServicios.collectAsState()
+               servicios.servicios.forEach { opcion ->
                     DropdownMenuItem(
                         text = {
-                            Text(text = opcion, textAlign = TextAlign.Center)
+                            Text(text = opcion.descripcion, textAlign = TextAlign.Center)
                         },
                         onClick = {
                             expanded = false
-                            viewModel.servicios = opcion
+                            viewModel.setServicio(opcion.servicioId?: 0, opcion.descripcion)
                         },
                         modifier = Modifier
                             .fillMaxWidth()
@@ -137,23 +150,49 @@ fun CitasBody(
                     )
                 }
             }
+
+            var showDatePicker by remember {
+                mutableStateOf(false)
+            }
+            if(showDatePicker)
+                DatePickerDialog(
+                    label = "Seleccione la fecha" ,
+                    onSelectDate ={ viewModel.fecha = it })
+                    {
+                        showDatePicker = false
+                }
+
             OutlinedTextField(
                 modifier = Modifier
                     .padding(8.dp)
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .clickable{showDatePicker = true},
                 value = viewModel.fecha,
                 onValueChange = { viewModel.fecha = it },
+                enabled = false,
+                readOnly = true,
                 label = { Text("Fecha") }
             )
+
+            var showTimePicker by remember {
+                mutableStateOf(false)
+            }
+            if (showTimePicker)
+                TimePickerDialog(
+                    label = "Seleccione la hora",
+                    onSelectTime = {viewModel.hora = it} ) {
+                    showTimePicker = false
+                }
             OutlinedTextField(
                 modifier = Modifier
                     .padding(8.dp)
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .clickable { showTimePicker = true },
                 value = viewModel.hora,
-                onValueChange = { viewModel.hora = it },
-                label = { Text("Horario") }
-            )
-
+                onValueChange = {viewModel.hora = it},
+                enabled = false,
+                readOnly = true,
+                label = { Text("Hora") })
         }
     }
 }

@@ -54,6 +54,9 @@ class InicioViewModel @Inject constructor(
                     is Resource.Error -> {
                         uiState.update { it.copy(error = resul.message ?: "Error desconocido") }
                     }
+                    else ->{
+
+                    }
 
                 }
 
@@ -83,10 +86,31 @@ class InicioViewModel @Inject constructor(
                     is Resource.Error -> {
                         uiState.update { it.copy(error = resul.message ?: "Error desconocido") }
                     }
+                    else ->{
+
+                    }
 
                 }
 
             }
+        }
+    }
+    fun cancelarCita(id: Int){
+        viewModelScope.launch {
+            var cita1: CitaDto? = null
+            citasRepos.getCitabyId(id).collect {
+                when( it ){
+                    is Resource.Success ->{
+                        cita1 = it.data
+                    }
+                    else ->{
+
+                    }
+                }
+            }
+            citasRepos.putCita(id, citaDto = CitaDto(
+                id, cita1!!.clienteId,cita1!!.servicioId,2,cita1!!.nombre,cita1!!.apellido,cita1!!.fecha
+            ))
         }
     }
 

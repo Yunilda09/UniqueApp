@@ -6,7 +6,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.edu.ucne.uniqueapp.data.remote.dto.CitaDto
+import com.edu.ucne.uniqueapp.data.remote.dto.ServiciosDto
 import com.edu.ucne.uniqueapp.data.repository.CitaRepositoryImp
+import com.edu.ucne.uniqueapp.data.repository.ServicioRepositoryImp
 import com.edu.ucne.uniqueapp.data.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,10 +29,16 @@ data class CitasListState(
      val citas: CitaDto? = null,
      val error: String = ""
  )
+data class ServicioListState(
+    val isLoading: Boolean = false,
+    val servicios: List<ServiciosDto> = emptyList(),
+    val error: String = ""
+)
 
 @HiltViewModel
 class CitasViewModel @Inject constructor(
-    private val citaRepository: CitaRepositoryImp
+    private val citaRepository: CitaRepositoryImp,
+    private val serviciosRepos: ServicioRepositoryImp
 ):ViewModel() {
     var citaId by mutableStateOf(0)
     var servicioId by mutableStateOf(0)
@@ -39,19 +47,20 @@ class CitasViewModel @Inject constructor(
     var nombre by mutableStateOf("")
     var apellido by mutableStateOf("")
     var fecha by mutableStateOf("")
-    var hora by mutableStateOf("")
+    var hora by mutableStateOf("12:00")
 
-    val opcionesServicios = listOf("Spa", "Salon", "Nails")
+    var uiStateServicios = MutableStateFlow(ServicioListState())
+        private set
     var uiState = MutableStateFlow(CitasListState())
         private set
     var uiStateCita = MutableStateFlow(CitasState())
         private set
 
+
     private fun Limpiar() {
-        nombre = ""
-        apellido = ""
-        fecha = ""
-        hora = ""
+       uiStateCita.update {
+           it.copy(isLoading = false, CitaDto(), "")
+       }
     }
 
     fun setCita(id: Int) {
@@ -64,18 +73,20 @@ class CitasViewModel @Inject constructor(
                 }
                 is Resource.Success -> {
                     uiStateCita.update {
-                        it.copy(citas = result.data)
+                        it.copy(citas = result.data, isLoading = false)
                     }
                     nombre = nombre
                     apellido = apellido
-                    uiStateCita.value.citas!!.fecha
-                    uiStateCita.value.citas!!.hora
+                    uiStateCita.value.citas!!.fecha.substring(0,10)
+                    hora = hora.substring(11,16)
                 }
                 is Resource.Error -> {
-                    uiStateCita.update { it.copy(error = result.message ?: "Error desconocido") }
+                    uiStateCita.update { it.copy(error = result.message ?: "Error desconocido",
+                        isLoading = false) }
                 }
             }
         }.launchIn(viewModelScope)
+
     }
         fun putCita() {
             viewModelScope.launch {
@@ -87,27 +98,92 @@ class CitasViewModel @Inject constructor(
                         estadoId = 1,
                         nombre,
                         apellido,
-                        fecha,
-                       hora,
+                        fecha  +"T"+hora+":00.157"
                     )
                 )
             }
         }
-        init {
-            citaRepository.getCitas().onEach { result ->
+    fun postCita() {
+        viewModelScope.launch {
+            citaRepository.postCita(
+                 CitaDto(
+                    clienteId = 1,
+                    servicioId = servicioId,
+                    estadoId = 1,
+                    nombre = nombre,
+                    apellido = apellido,
+                    fecha =  fecha +"T"+hora+":00.157"
+                )
+            )
+        }
+    }
+
+    fun cancelarCita(id: Int){
+        viewModelScope.launch {
+            var cita1: CitaDto? = null
+            citaRepository.getCitabyId(id).collect {
+                when( it ){
+                    is Resource.Success ->{
+                        cita1 = it.data
+                    }
+                    else ->{
+
+                    }
+                }
+            }
+            citaRepository.putCita(id, citaDto = CitaDto(
+                id, cita1!!.clienteId,cita1!!.servicioId,
+                2,cita1!!.nombre,cita1!!.apellido,cita1!!.fecha
+            ))
+        }
+    }
+    fun setServicio(servicioId: Int, descripcion: String) {
+        this.servicioId = servicioId
+        this.servicios = descripcion
+    }
+    fun guardar(){
+        if (citaId == 0){
+            postCita()
+        }
+        else {
+            putCita()
+        }
+    }
+   fun obtenerLista(){
+        citaRepository.getCitas(clienteId).onEach { result ->
+            when (result) {
+                is Resource.Loading -> {
+                    uiState.update { it.copy(isLoading = true) }
+                }
+                is Resource.Success -> {
+                    uiState.update {
+                        it.copy(citas = result.data ?: emptyList(), isLoading = false)
+                    }
+                }
+                is Resource.Error -> {
+                    uiState.update { it.copy(error = result.message ?: "Error desconocido",
+                        isLoading = false) }
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+    init {
+            serviciosRepos.getServicios().onEach { result ->
                 when (result) {
                     is Resource.Loading -> {
-                        uiState.update { it.copy(isLoading = true) }
+                        uiStateServicios.update { it.copy(isLoading = true) }
                     }
                     is Resource.Success -> {
-                        uiState.update {
-                            it.copy(citas = result.data ?: emptyList())
+                        uiStateServicios.update {
+                            it.copy(servicios = result.data ?: emptyList(), isLoading = false)
                         }
                     }
                     is Resource.Error -> {
-                        uiState.update { it.copy(error = result.message ?: "Error desconocido") }
+                        uiStateServicios.update { it.copy(error = result.message ?: "Error desconocido",
+                            isLoading = false) }
                     }
                 }
             }.launchIn(viewModelScope)
         }
+
     }

@@ -19,17 +19,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.edu.ucne.uniqueapp.Login.GoogleAuthClient
+import com.edu.ucne.uniqueapp.Login.SignInScreen
+import com.edu.ucne.uniqueapp.Login.SignInViewModel
 import com.edu.ucne.uniqueapp.ui.NavigationManager
 import com.edu.ucne.uniqueapp.ui.theme.UniqueAppTheme
 import com.google.android.gms.auth.api.identity.Identity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import com.edu.ucne.uniqueapp.Login.SignInScreen
-import com.edu.ucne.uniqueapp.Login.SignInViewModel
+
 //import com.edu.ucne.uniqueapp.presentation.ProfileScreen
 
 

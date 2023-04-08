@@ -19,6 +19,7 @@ import com.edu.ucne.uniqueapp.data.remote.dto.CitaDto
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
+import com.edu.ucne.uniqueapp.ui.componentes.CitasRow
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,6 +28,7 @@ fun CitasListScreen (
     onNewCita: () -> Unit, viewModel: CitasViewModel = hiltViewModel(),
     onCitaClick: (Int) -> Unit
 ){
+    viewModel.obtenerLista()
     Scaffold(
         modifier = Modifier
             .fillMaxWidth()
@@ -46,7 +48,7 @@ fun CitasListScreen (
                 .fillMaxSize()
                 .padding(it)
         ) {
-            CitasListBody(uiState.citas) {
+            CitasListBody({ viewModel.cancelarCita(it) }, uiState.citas) {
                 onCitaClick(it)
             }
         }
@@ -54,14 +56,14 @@ fun CitasListScreen (
 }
 
 @Composable
-fun CitasListBody(citaList: List<CitaDto>, onCitaClick: (Int) -> Unit) {
-    Column(modifier = Modifier.fillMaxWidth()
+fun CitasListBody(onCitaSwipe: (Int) -> Unit, citaList: List<CitaDto>, onCitaClick: (Int) -> Unit) {
+    Column(modifier = Modifier
+        .fillMaxWidth()
         .background(Color(0xFFFFF3F5))
-       // color = Color(0xFFC45559)
     ) {
         LazyColumn {
-            items(citaList) { ticket ->
-                CitaRow(ticket) {
+            items(citaList) { cita ->
+                CitasRow(  onCitaSwipe = {onCitaSwipe(it)}, citaDto = cita) {
                     onCitaClick(it)
                 }
             }
@@ -71,7 +73,7 @@ fun CitasListBody(citaList: List<CitaDto>, onCitaClick: (Int) -> Unit) {
 }
 
 @Composable
-fun CitaRow(cita: CitaDto, onCitaClick: (Int) -> Unit) {
+fun CitaList(cita: CitaDto, onCitaClick: (Int) -> Unit) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -81,7 +83,7 @@ fun CitaRow(cita: CitaDto, onCitaClick: (Int) -> Unit) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                //.clickable(onClick = { onCitaClick(cita.citaId) })
+                .clickable(onClick = { onCitaClick(cita.citaId) })
         ) {
                 Row() {
                     Text(
@@ -90,12 +92,12 @@ fun CitaRow(cita: CitaDto, onCitaClick: (Int) -> Unit) {
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier.weight(3f)
                     )
-                   /* Text(
+                    Text(
                         text = cita.fecha,
                         style = MaterialTheme.typography.titleSmall,
                         textAlign = TextAlign.End,
                         modifier = Modifier.weight(3f)
-                    )*/
+                    )
                     Text(
                         text = cita.apellido,
                         style = MaterialTheme.typography.titleLarge,
@@ -108,10 +110,6 @@ fun CitaRow(cita: CitaDto, onCitaClick: (Int) -> Unit) {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
 
-                   /* Text(
-                        text = cita.hora,
-                        style = MaterialTheme.typography.titleMedium,
-                    )*/
 
                 }
             }

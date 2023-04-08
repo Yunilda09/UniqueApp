@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,12 +20,14 @@ import com.edu.ucne.uniqueapp.R
 import com.edu.ucne.uniqueapp.data.remote.dto.CitaDto
 import com.edu.ucne.uniqueapp.ui.citas.CitasViewModel
 import com.edu.ucne.uniqueapp.ui.componentes.CitasRow
+import com.edu.ucne.uniqueapp.ui.inicio.InicioViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InicioScreen(navController: NavHostController,
-    viewModel: CitasViewModel = hiltViewModel(),
-                 onSaveClick: () -> Unit) {
+    viewModel: InicioViewModel = hiltViewModel(),
+                 onSaveClick: () -> Unit,
+        onCitaClick: (Int) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxHeight()
@@ -41,17 +44,16 @@ fun InicioScreen(navController: NavHostController,
             color = Color(0xFFC45559)
         )
         Spacer(modifier = Modifier.padding(8.dp))
-        Inicio(viewModel = viewModel){
-            onSaveClick()
+        Inicio(viewModel = viewModel, onSaveClick){
+          onCitaClick(it)
         }
-        Spacer(modifier = Modifier.padding(8.dp))
-        CitasProximas()
     }
 }
 
 @Composable
-fun Inicio(viewModel: CitasViewModel,
-            onSaveClick:() -> Unit
+fun Inicio(viewModel: InicioViewModel,
+            onSaveClick:() -> Unit,
+           onCitaClick: (Int) -> Unit
 ) {
     Column(modifier = Modifier.fillMaxWidth()
     ) {
@@ -75,19 +77,27 @@ fun Inicio(viewModel: CitasViewModel,
         ) {
             Text(text = "Ver mis citas")
         }
+        val uiState =  viewModel.uiState.collectAsState()
+        CitasProximas(listCitas = uiState.value.citasProximas,
+            onCitaSwipe = {viewModel.cancelarCita(it)},
+            onCitaClick = {onCitaClick(it)})
     }
 }
 
 @Composable
-fun CitasProximas() {
-    Column(modifier = Modifier.fillMaxWidth()) {
+fun CitasProximas(listCitas: List<CitaDto>, onCitaSwipe: (Int) -> Unit, onCitaClick: (Int) -> Unit) {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .padding(8.dp)) {
         Text(
             text = "Proximas Citas",
             modifier = Modifier.align(Alignment.CenterHorizontally),
             color = Color(0xFFC45559)
         )
-      /*  CitasRow(citaDto = CitaDto(0, 0, 0, 0, "", "","",""),
-            onCitaClick = {})*/
+        listCitas.forEach{
+            CitasRow(onCitaSwipe = onCitaSwipe, citaDto = it , onCitaClick = onCitaClick )
+        }
+
     }
 }
 
