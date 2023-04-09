@@ -71,8 +71,8 @@ fun CitasBody(
                         "Crea tu cita",
                         textAlign = TextAlign.Center,
                         fontWeight = FontWeight.Bold,
-                        style = MaterialTheme.typography.headlineLarge
-
+                        style = MaterialTheme.typography.headlineLarge,
+                        color = Color(0xFFC45559)
                     )
                 }
             )
@@ -82,11 +82,12 @@ fun CitasBody(
                 modifier = Modifier
                     .padding(8.dp),
 
-                content = { Icon(imageVector = Icons.Filled.Save, contentDescription = "Save") },
+                content = { Icon(imageVector = Icons.Filled.Save, contentDescription = "Save",
+                    tint = Color(0xFFC45559)) },
                 onClick = {
                     viewModel.guardar()
                     onSaveClick()
-                }
+                }, containerColor = Color(0xFFFEDEE2)
             )
         }
     ) {
@@ -166,7 +167,7 @@ fun CitasBody(
                 modifier = Modifier
                     .padding(8.dp)
                     .fillMaxWidth()
-                    .clickable{showDatePicker = true},
+                    .clickable { showDatePicker = true },
                 value = viewModel.fecha,
                 onValueChange = { viewModel.fecha = it },
                 enabled = false,

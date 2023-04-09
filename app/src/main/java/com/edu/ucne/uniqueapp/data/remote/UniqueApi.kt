@@ -43,17 +43,17 @@ interface UniqueApi {
    suspend fun deleteServicios(@Path("id") id:Int)
 
    //Cita
-   @GET("/api/Cita/lista/{id}")
+   @GET("/api/Citas/lista/{id}")
    suspend fun getCita(@Path ("id") id: Int): List<CitaDto>
-   @GET("/api/Cita/{id}")
+   @GET("/api/Citas/{id}")
    suspend fun getCitabyId(@Path("id") id: Int): CitaDto
    @GET("/api/Citas/Top3CitasByClienteId/{ClienteId}")
    suspend fun getCitasProxima(@Path("ClienteId") clienteId: Int): List<CitaDto>
-   @POST("/api/Cita")
+   @POST("/api/Citas")
    suspend fun postCita(@Body citaDto: CitaDto): Response<CitaDto>
-   @PUT("/api/Cita/{id}")
+   @PUT("/api/Citas/{id}")
    suspend fun putCita(@Path("id") id: Int, @Body citaDto: CitaDto): Response<CitaDto>
-   @DELETE("/api/Cita/{id}")
+   @DELETE("/api/Citas/{id}")
    suspend fun deleteCita(@Path("id") id: Int)
 
 
