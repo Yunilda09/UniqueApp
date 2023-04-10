@@ -65,7 +65,7 @@ class MainActivity : ComponentActivity() {
                                  navController.navigate("profile")
                              }
                          }*/
-
+/*
                     val viewModel = viewModel<SignInViewModel>()
                     val state by viewModel.state.collectAsStateWithLifecycle()
                     val launcher = rememberLauncherForActivityResult(
@@ -106,7 +106,7 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                         }
-                    )
+                    )*/
                 }
                /* composable("profile") {
                     ProfileScreen(
@@ -127,19 +127,5 @@ class MainActivity : ComponentActivity() {
                 }*/
             }
         }
-    }
-}
-
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    UniqueAppTheme {
-        Greeting("Android")
     }
 }

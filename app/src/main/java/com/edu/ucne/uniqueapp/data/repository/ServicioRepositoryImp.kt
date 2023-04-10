@@ -31,11 +31,11 @@ class ServicioRepositoryImp @Inject constructor(
     override suspend fun putServicios(id: Int, serviciosDto: ServiciosDto){
         api.putServicios(id, serviciosDto)
     }
-    override fun getServiciobyId(id: Int) : Flow<Resource<ServiciosDto>> = flow {
+    override fun getServicioById(id: Int) : Flow<Resource<ServiciosDto>> = flow {
         try {
             emit(Resource.Loading())
 
-            val servicio = api.getServiciosbyId(id)
+            val servicio = api.getServiciosById(id)
 
             emit (Resource.Success(servicio))
         } catch (e: HttpException) {
@@ -45,6 +45,7 @@ class ServicioRepositoryImp @Inject constructor(
             emit(Resource.Error(e.message ?: "Verificar tu conexion a internet"))
         }
     }
+
 
 
     override suspend fun deleteServicios(id: Int) = api.deleteServicios(id)

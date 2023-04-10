@@ -59,7 +59,7 @@ class ClienteViewModel @Inject constructor(
         clienteId = id
         Limpiar()
 
-        clientesRepositoryImp.getClientesbyId(clienteId).onEach { result ->
+        clientesRepositoryImp.getClienteById(clienteId).onEach { result ->
             when (result) {
                 is Resource.Loading -> {
                     uiStateCliente.update { it.copy(isLoading = true) }
@@ -99,7 +99,7 @@ class ClienteViewModel @Inject constructor(
     }
 
     init {
-        clientesRepositoryImp.getClientes().onEach { result ->
+       /* clientesRepositoryImp.getClientes().onEach { result ->
             when (result) {
                 is Resource.Loading -> {
                     uiState.update { it.copy(isLoading = true) }
@@ -113,6 +113,6 @@ class ClienteViewModel @Inject constructor(
                     uiState.update { it.copy(error = result.message ?: "Error desconocido") }
                 }
             }
-        }.launchIn(viewModelScope)
+        }.launchIn(viewModelScope)*/
     }
 }

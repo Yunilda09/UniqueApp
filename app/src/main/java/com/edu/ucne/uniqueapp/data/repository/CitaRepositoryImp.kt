@@ -11,8 +11,7 @@ import javax.inject.Inject
 
 class CitaRepositoryImp @Inject constructor(
     private val api: UniqueApi
-
-): Cita1Repository {
+) : Cita1Repository {
 
     override fun getCitas(id: Int): Flow<Resource<List<CitaDto>>> = flow {
         try {
@@ -28,12 +27,10 @@ class CitaRepositoryImp @Inject constructor(
             emit(Resource.Error(e.message ?: "Verificar tu conexion a internet"))
         }
     }
-
     override suspend fun putCita(id: Int, citaDto: CitaDto) {
         api.putCita(id, citaDto)
     }
-
-    override fun getCitabyId(id: Int): Flow<Resource<CitaDto>> = flow {
+    override fun getCitaById(id: Int): Flow<Resource<CitaDto>> = flow {
         try {
             emit(Resource.Loading())
 
@@ -41,15 +38,11 @@ class CitaRepositoryImp @Inject constructor(
 
             emit(Resource.Success(cita))
         } catch (e: HttpException) {
-
             emit(Resource.Error(e.message ?: "Error HTTP GENERAL"))
         } catch (e: IOException) {
             emit(Resource.Error(e.message ?: "Verificar tu conexion a internet"))
         }
     }
-
-
-    override suspend fun deleteCita(id: Int) = api.deleteCita(id)
     override fun getCitasProximas(id: Int): Flow<Resource<List<CitaDto>>> = flow {
         try {
             emit(Resource.Loading())
@@ -58,15 +51,10 @@ class CitaRepositoryImp @Inject constructor(
 
             emit(Resource.Success(cita))
         } catch (e: HttpException) {
-
             emit(Resource.Error(e.message ?: "Error HTTP GENERAL"))
         } catch (e: IOException) {
             emit(Resource.Error(e.message ?: "Verificar tu conexion a internet"))
         }
     }
-
-    override suspend fun postCita(citaDto: CitaDto) = api.postCita(citaDto)
-
-
-
+    override suspend fun postCita(citaDto: CitaDto): CitaDto = api.postCita(citaDto)
 }

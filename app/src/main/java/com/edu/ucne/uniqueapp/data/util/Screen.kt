@@ -7,8 +7,10 @@ import androidx.compose.material.icons.twotone.Handshake
 import androidx.compose.material.icons.twotone.Spa
 import androidx.compose.ui.graphics.vector.ImageVector
 
-sealed class Screen(val route: String, val title: String, val icon: ImageVector) {
-    object Inicio : Screen("start","Inicio", Icons.TwoTone.Favorite)
-    object CitaScreen: Screen("registro_Cita", "Cita", Icons.TwoTone.Spa)
-
+sealed class Screen(val route: String) {
+    object Inicio : Screen("start")
+    object CitaScreen : Screen("registro_Cita")
+    object CitaListScreen : Screen("consulta_Cita")
+    object ServicioListScreen : Screen("consulta_Servicio")
+    object LoginScreen : Screen("login")
 }

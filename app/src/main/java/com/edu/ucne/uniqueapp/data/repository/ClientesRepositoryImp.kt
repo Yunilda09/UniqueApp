@@ -11,31 +11,17 @@ import javax.inject.Inject
 
 class ClientesRepositoryImp @Inject constructor(
     private val api: UniqueApi
-
 ): Clientes1Repository {
 
-    override fun getClientes(): Flow<Resource<List<ClientesDto>>> = flow {
+    override suspend fun putClientes(id: Int, clientesDto: ClientesDto) {
+        api.putClientes(id, clientesDto)
+    }
+
+    override fun getClienteById(id: Int) :Flow<Resource<ClientesDto>> = flow {
         try {
             emit(Resource.Loading())
 
-            val cliente = api.getClientes()
-
-            emit (Resource.Success(cliente))
-        } catch (e: HttpException) {
-
-            emit(Resource.Error(e.message ?: "Error HTTP GENERAL"))
-        } catch (e: IOException) {
-            emit(Resource.Error(e.message ?: "Verificar tu conexion a internet"))
-        }
-    }
-    override suspend fun putClientes(id: Int, clientesDto: ClientesDto){
-        api.putClientes(id,clientesDto)
-    }
-    override fun getClientesbyId(id: Int) :Flow<Resource<ClientesDto>> = flow {
-        try {
-            emit(Resource.Loading())
-
-            val persona = api.getClientesbyId(id)
+            val persona = api.getClientesById(id)
 
             emit (Resource.Success(persona))
         } catch (e: HttpException) {
@@ -46,6 +32,4 @@ class ClientesRepositoryImp @Inject constructor(
         }
     }
 
-
-    override suspend fun deleteClientes(id: Int) = api.deleteClientes(id)
 }

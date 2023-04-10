@@ -7,6 +7,6 @@ import kotlinx.coroutines.flow.Flow
 interface Servicio1Repository {
     fun getServicios(): Flow<Resource<List<ServiciosDto>>>
     suspend fun putServicios(id: Int, serviciosDto: ServiciosDto)
-    fun getServiciobyId(id: Int): Flow<Resource<ServiciosDto>>
+    fun getServicioById(id: Int): Flow<Resource<ServiciosDto>>
     suspend fun deleteServicios(id: Int)
 }
