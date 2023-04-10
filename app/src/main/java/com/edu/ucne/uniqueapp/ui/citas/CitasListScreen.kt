@@ -1,23 +1,15 @@
 package com.edu.ucne.uniqueapp.ui.citas
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
-import androidx.compose.material3.DividerDefaults.color
-import androidx.compose.material3.SnackbarDefaults.color
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.edu.ucne.uniqueapp.data.remote.dto.CitaDto
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import com.edu.ucne.uniqueapp.data.remote.dto.Cita
 import com.edu.ucne.uniqueapp.ui.componentes.CitasRow
@@ -83,49 +75,4 @@ fun CitasListBody(onCitaSwipe: (Int) -> Unit, citaList: List<Cita>, onCitaClick:
         }
     }
 
-}
-
-@Composable
-fun CitaList(cita: CitaDto, onCitaClick: (Int) -> Unit) {
-    Column(
-        Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-    ) {
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable(onClick = { onCitaClick(cita.citaId) })
-        ) {
-            Row() {
-                Text(
-                    text = cita.nombre,
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.weight(3f)
-                )
-                Text(
-                    text = cita.fecha,
-                    style = MaterialTheme.typography.titleSmall,
-                    textAlign = TextAlign.End,
-                    modifier = Modifier.weight(3f)
-                )
-                Text(
-                    text = cita.apellido,
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.weight(3f)
-                )
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-
-
-            }
-        }
-        Divider(Modifier.fillMaxWidth())
-    }
 }

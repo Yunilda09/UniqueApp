@@ -129,7 +129,7 @@ class CitasViewModel @Inject constructor(
 
     private fun buscarServicio(id: Int) {
 
-        servicioRepos.getServiciobyId(id).onEach { result ->
+        servicioRepos.getServicioById(id).onEach { result ->
             when (result) {
                 is Resource.Loading -> {
                     uiStateCita.update {
@@ -255,7 +255,7 @@ class CitasViewModel @Inject constructor(
                     result.data?.forEach { citaDto ->
                         var desc by mutableStateOf("")
                         var est by mutableStateOf("")
-                        servicioRepos.getServiciobyId(citaDto.servicioId).collect { resul ->
+                        servicioRepos.getServicioById(citaDto.servicioId).collect { resul ->
                             desc = resul.data?.descripcion ?: ""
                         }
                         estadoRepos.getEstadoById(citaDto.estadoId).collect {
@@ -284,7 +284,7 @@ class CitasViewModel @Inject constructor(
     }
     fun  setCliente(clienteId: Int){
         this.clienteId = clienteId
-        clienteRepos.getClientesbyId(clienteId).onEach { result ->
+        clienteRepos.getClienteById(clienteId).onEach { result ->
             when (result) {
                 is Resource.Loading -> {
                     uiStateCliente.update {
