@@ -6,7 +6,7 @@ import retrofit2.http.*
 
 interface UniqueApi {
 
-    /*CLIENTES*/
+    /* CLIENTE */
     @GET("/api/Clientes/{id}")
     suspend fun getClientesById(@Path("id") id: Int): ClientesDto
 
@@ -23,7 +23,7 @@ interface UniqueApi {
     suspend fun putClientes(@Path("id") id: Int, @Body clientesDto: ClientesDto): Response<Unit>
 
 
-    // TipoServicio
+    /* TIPO DE SERVICIOS */
     @GET("/api/TipoServicios")
     suspend fun getTipoServicios(): List<TipoServiciosDto>
 
@@ -31,7 +31,7 @@ interface UniqueApi {
     suspend fun getTipoServicioById(@Path("id") id: Int): TipoServiciosDto
 
 
-    //Servicios
+    /* SERVICIOS */
     @GET("/api/Servicios")
     suspend fun getServicio(): List<ServiciosDto>
 
@@ -47,12 +47,12 @@ interface UniqueApi {
     @DELETE("/api/Servicios/{id}")
     suspend fun deleteServicios(@Path("id") id: Int)
 
-    //Cita
-    @GET("/api/Citas/lista/{id}")
-    suspend fun getCita(@Path("id") id: Int): List<CitaDto>
+    /* CITAS */
+    @GET("/lista/{id}")
+    suspend fun getCitas(@Path("id") id: Int): List<CitaDto>
 
     @GET("/api/Citas/{id}")
-    suspend fun getCitabyId(@Path("id") id: Int): CitaDto
+    suspend fun getCitaById(@Path("id") id: Int): CitaDto
 
     @GET("/api/Citas/Top3CitasByClienteId/{ClienteId}")
     suspend fun getCitasProxima(@Path("ClienteId") ClienteId: Int): List<CitaDto>
@@ -61,13 +61,12 @@ interface UniqueApi {
     suspend fun postCita(@Body citaDto: CitaDto): CitaDto
 
     @PUT("/api/Citas/{id}")
-    suspend fun putCita(@Path("id") id: Int, @Body citaDto: CitaDto): Response<CitaDto>
+    suspend fun putCita(@Path("id") id: Int, @Body citaDto: CitaDto): Response<Unit>
 
     /* ESTADOS */
     @GET("/api/Estadoes")
-    suspend fun getEstados(): List<EstadoDto>
-
+    suspend fun getEstados() : List<EstadoDto>
     @GET("/api/Estadoes/{id}")
-    suspend fun getEstadoById(@Path("id") id: Int): EstadoDto
+    suspend fun getEstadoById(@Path("id") id:Int) : EstadoDto
 
 }

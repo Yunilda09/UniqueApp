@@ -37,7 +37,7 @@ fun CitasScreen(
     Column(
         modifier = Modifier
             .fillMaxHeight()
-            .background(Color(0xFFFFF3F5))
+            .background(Color(0xFFFFEEED))
     ) {
 
         remember {

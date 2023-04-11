@@ -1,5 +1,4 @@
 package com.edu.ucne.uniqueapp.ui.citas
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -9,13 +8,13 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.edu.ucne.uniqueapp.data.remote.dto.Cita
 import com.edu.ucne.uniqueapp.ui.componentes.CitasRow
 import com.edu.ucne.uniqueapp.ui.componentes.ConfirmationDialog
 import com.edu.ucne.uniqueapp.ui.componentes.ListTopBar
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -26,7 +25,7 @@ fun CitasListScreen(
     onCitaClick: (Int) -> Unit
 ) {
     remember {
-         viewModel.setCliente(clienteId)
+        viewModel.setCliente(clienteId)
         1
     }
     viewModel.obtenerLista()
@@ -59,12 +58,14 @@ fun CitasListScreen(
         }
     }
 }
+
 @Composable
 fun CitasListBody(onCitaSwipe: (Int) -> Unit, citaList: List<Cita>, onCitaClick: (Int) -> Unit) {
- Column(
+    Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .background(Color(0xFFFFF3F5))
+            .fillMaxSize()
+            .padding(top = 64.dp)
+            .background(Color(0xFFFFEEED))
     ) {
         LazyColumn {
             items(citaList) { cita ->

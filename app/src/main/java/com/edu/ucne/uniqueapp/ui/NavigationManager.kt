@@ -17,6 +17,7 @@ import com.edu.ucne.uniqueapp.data.util.Screen
 import com.edu.ucne.uniqueapp.ui.citas.CitasListScreen
 import com.edu.ucne.uniqueapp.ui.citas.CitasScreen
 import com.edu.ucne.uniqueapp.ui.componentes.NavItem
+import com.edu.ucne.uniqueapp.ui.servicios.ServiciosListScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -70,8 +71,14 @@ fun NavigationManager(navController: NavHostController) {
                 navController.navigate(Screen.CitaScreen.route + "/$it")
             }
         }
+        composable(Screen.ServicioListScreen.route) {
+            ServiciosListScreen(
+                navigateUp = { navController.navigateUp() }) {
+                navController.navigate(Screen.Inicio.route + "/$it")
+            }
+
+        }
 
     }
-
-    }
+}
 

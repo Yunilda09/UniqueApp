@@ -45,10 +45,10 @@ fun InicioScreen(
     Column(
         modifier = Modifier
             .fillMaxHeight()
-            .background(Color(0xFFFFF3F5))
+            .background(Color(0xFFFFEEED))
     ) {
         Image(
-            painter = painterResource(id = R.drawable.salon_and_spa),
+            painter = painterResource(id = R.drawable.logo),
             contentDescription = "header",
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )

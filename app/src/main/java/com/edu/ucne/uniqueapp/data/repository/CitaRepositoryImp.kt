@@ -17,7 +17,7 @@ class CitaRepositoryImp @Inject constructor(
         try {
             emit(Resource.Loading())
 
-            val cita = api.getCita(id)
+            val cita = api.getCitas(id)
 
             emit(Resource.Success(cita))
         } catch (e: HttpException) {
@@ -34,7 +34,7 @@ class CitaRepositoryImp @Inject constructor(
         try {
             emit(Resource.Loading())
 
-            val cita = api.getCitabyId(id)
+            val cita = api.getCitaById(id)
 
             emit(Resource.Success(cita))
         } catch (e: HttpException) {

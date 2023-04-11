@@ -64,32 +64,29 @@ class CitasViewModel @Inject constructor(
     private var servicioId by mutableStateOf(0)
     var servicios by mutableStateOf("")
     var servicioError by mutableStateOf("Debe seleccionar un servicio")
-    private var clienteId by mutableStateOf(0)
+    private var clienteId by mutableStateOf(1)
     var estadoId by mutableStateOf(0)
     var nombre by mutableStateOf("")
     var nombreError by mutableStateOf("El nombre debe tener al menos 3 letras")
     var apellido by mutableStateOf("")
     var apellidoError by mutableStateOf("El apellido debe tener al menos 3 letras")
     var fecha by mutableStateOf("")
-    var fechaError by mutableStateOf("Debes seleccionar un fecha")
+    var fechaError by mutableStateOf("Debe seleccionar una fecha")
     var hora by mutableStateOf("")
-    var horaError by mutableStateOf("Debe seleecionar una hora")
+    var horaError by mutableStateOf("Debe seleccionar una hora")
 
     private val citasListState = MutableStateFlow(CitasListUiState())
     val listUiState = citasListState.asStateFlow()
 
     var uiStateServicios = MutableStateFlow(ServicioListState())
         private set
-
     var uiState = MutableStateFlow(CitasListState())
         private set
-
     private var uiStateCita = MutableStateFlow(CitasState())
         private set
 
     var uiStateCliente = MutableStateFlow(ClienteUiState())
         private set
-
 
     fun setCita(id: Int) {
         estadoId = 0
@@ -124,6 +121,7 @@ class CitasViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
+
 
     }
 
@@ -169,11 +167,11 @@ class CitasViewModel @Inject constructor(
         }
     }
 
-    fun postCita() {
+    private fun postCita() {
         viewModelScope.launch {
             citaRepository.postCita(
                 CitaDto(
-                    clienteId = 1,
+                    clienteId = clienteId,
                     servicioId = servicioId,
                     estadoId = 1,
                     nombre = nombre,
@@ -225,7 +223,7 @@ class CitasViewModel @Inject constructor(
 
     fun asignarServicio(servicioId: Int, descripcion: String) {
         this.servicioId = servicioId
-        this.servicios = descripcion
+        asignarServicio(descripcion)
     }
 
     fun guardar() {
@@ -241,7 +239,8 @@ class CitasViewModel @Inject constructor(
             && nombreError.isEmpty()
             && apellidoError.isEmpty()
             && servicioError.isEmpty()
-    fun obtenerLista(){
+
+    fun obtenerLista() {
         val listaAux: MutableList<Cita> = mutableListOf()
         citaRepository.getCitas(clienteId).onEach { result ->
             when (result) {
@@ -282,7 +281,9 @@ class CitasViewModel @Inject constructor(
             )
         }.launchIn(viewModelScope)
     }
-    fun  setCliente(clienteId: Int){
+
+
+    fun setCliente(clienteId: Int) {
         this.clienteId = clienteId
         clienteRepos.getClienteById(clienteId).onEach { result ->
             when (result) {
@@ -337,13 +338,14 @@ class CitasViewModel @Inject constructor(
         setCliente(1)
     }
 
-    private fun asignarNombre(input: String) {
+    fun asignarNombre(input: String) {
         this.nombre = input
         nombreError = if (nombre.length > 2)
             ""
         else
             "El nombre debe tener al menos 3 letras"
     }
+
     fun asignarApellido(input: String) {
         this.apellido = input
         apellidoError = if (apellido.length > 2)
@@ -353,6 +355,7 @@ class CitasViewModel @Inject constructor(
         }
 
     }
+
     fun asignarServicio(input: String) {
         servicios = input
         servicioError = if (servicioId > 0)
