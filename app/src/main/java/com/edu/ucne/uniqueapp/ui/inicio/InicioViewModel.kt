@@ -15,7 +15,6 @@ import com.edu.ucne.uniqueapp.data.util.Resource
 import com.edu.ucne.uniqueapp.ui.citas.CitasListUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -90,7 +89,7 @@ class InicioViewModel @Inject constructor(
                         }
                         listaAux.add(
                             citaDto.toCita(
-                                desc, ""
+                                desc,""
                             )
                         )
                     }
@@ -109,7 +108,9 @@ class InicioViewModel @Inject constructor(
             )
         }.launchIn(viewModelScope)
     }
-    fun cancelarCita(id: Int){
+
+
+    fun cancelarCita(id: Int) {
         citasRepos.getCitaById(id).onEach { result ->
             when (result) {
                 is Resource.Loading -> {

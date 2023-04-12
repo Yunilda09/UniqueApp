@@ -1,4 +1,5 @@
 package com.edu.ucne.uniqueapp.ui.citas
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -65,7 +66,7 @@ fun CitasListBody(onCitaSwipe: (Int) -> Unit, citaList: List<Cita>, onCitaClick:
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 64.dp)
-            .background(Color(0xFFFFEEED))
+            .background(Color(0xFFFFF3F5))
     ) {
         LazyColumn {
             items(citaList) { cita ->

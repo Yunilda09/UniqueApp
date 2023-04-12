@@ -32,20 +32,21 @@ import com.edu.ucne.uniqueapp.ui.componentes.*
 fun CitasScreen(
     citaId: Int,
     viewModel: CitasViewModel = hiltViewModel(),
-    onsaveClick: () -> Unit,
+    onSaveClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier
             .fillMaxHeight()
-            .background(Color(0xFFFFEEED))
+            .background(Color(0xFFFFF3F5))
     ) {
+
 
         remember {
             viewModel.setCita(citaId)
             0
         }
         CitasBody(viewModel = viewModel) {
-            onsaveClick()
+            onSaveClick()
         }
     }
 }
@@ -61,6 +62,7 @@ fun CitasBody(
     var expanded by remember {
         mutableStateOf(false)
     }
+
     var allVerified by remember { mutableStateOf(false) }
 
     val intNombreSource = remember { MutableInteractionSource() }
@@ -77,6 +79,7 @@ fun CitasBody(
     var gotFocusServicio by remember { mutableStateOf(false) }
     var gotFocusFecha by remember { mutableStateOf(false) }
     var gotFocusHora by remember { mutableStateOf(false) }
+
 
     Scaffold(
         modifier = Modifier
@@ -131,13 +134,12 @@ fun CitasBody(
                 keyboardActions = KeyboardActions(
                     onNext = { focusManager.moveFocus(FocusDirection.Down) }
                 ),
-                onValueChange = { /*viewModel.asignarNombre*/(it) },
+                onValueChange = { viewModel.asignarNombre(it) },
                 leadingIcon = {
                     Icon(imageVector = Icons.Outlined.Person, contentDescription = "Nombre")
                 },
                 label = { Text("Nombres") }
             )
-
             /* APELLIDO */
             OutLinedTextField(
                 modifier = Modifier
@@ -160,7 +162,7 @@ fun CitasBody(
                 label = { Text("Apellidos") }
             )
 
-            /*SERVICIOS*/
+            /* SERVICIOS */
             OutLinedTextField(
                 modifier = Modifier
                     .padding(8.dp)
@@ -306,9 +308,9 @@ fun CitasBody(
                     }
                 }
             }
-
         }
     }
 }
+
 
 

@@ -26,6 +26,7 @@ fun NavigationManager(navController: NavHostController) {
         navController = navController,
         startDestination = Screen.Inicio.route
     ) {
+
         val listaNavegacion = listOf(
             NavItem({ navController.navigate(Screen.Inicio.route) }, Icons.TwoTone.Home, "Home"),
             NavItem(

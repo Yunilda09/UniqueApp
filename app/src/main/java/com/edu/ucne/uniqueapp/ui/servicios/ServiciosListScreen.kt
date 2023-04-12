@@ -1,11 +1,9 @@
 package com.edu.ucne.uniqueapp.ui.servicios
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.TaskAlt
@@ -45,7 +43,7 @@ fun ServiciosListScreen(
                 .fillMaxSize()
                 .padding(it)
         ) {
-            ServiciosListBody(uiState.servicios) {
+            ServiciosListBody(uiState.servicios, {viewModel.cambiarFiltro(it)}) {
                 onServicioClick(it)
             }
         }
@@ -53,17 +51,29 @@ fun ServiciosListScreen(
 }
 
 @Composable
-fun ServiciosListBody(servicioList: List<ServiciosDto>, onServicioClick: (Int) -> Unit) {
-    Column(modifier = Modifier.fillMaxWidth()
-        .padding(top = 64.dp)
-        .background(Color(0xFFFFEEED))) {
-        LazyColumn {
-            items(servicioList) { servicio ->
-                ServicioRow(servicio) {
-                    onServicioClick(it)
+fun ServiciosListBody(
+    servicioList: List<ServiciosDto>,
+    onCambiarFiltro: (Int) -> Unit,
+    onServicioClick: (Int) -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color(0xFFFFEEED))
+    ) {
+        Row(modifier = Modifier.fillMaxHeight()) {
+            FiltroRail {
+                onCambiarFiltro(it)
+            }
+            LazyColumn {
+                items(servicioList) { servicio ->
+                    ServicioRow(servicio) {
+                        onServicioClick(it)
+                    }
                 }
             }
         }
+
     }
 }
 

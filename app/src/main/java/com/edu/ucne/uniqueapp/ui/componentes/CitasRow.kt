@@ -3,24 +3,24 @@ package com.edu.ucne.uniqueapp.ui.componentes
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.*
-import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.edu.ucne.uniqueapp.data.remote.dto.Cita
-import com.edu.ucne.uniqueapp.data.remote.dto.CitaDto
 import com.edu.ucne.uniqueapp.ui.theme.Rosa10
 import kotlinx.coroutines.launch
-import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
 
@@ -37,7 +37,7 @@ fun CitasRow(
         .fillMaxWidth()
         .padding(8.dp)
         .clickable { onCitaClick(cita.id) }
-        .offset{
+        .offset {
             IntOffset(offsetY.value.roundToInt(), 0)
         }
         .draggable(
@@ -62,7 +62,7 @@ fun CitasRow(
             }
         ),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFF3D5D9)
+            containerColor = Color(0xFFFFEEED)
         )
     ) {
         Column(
@@ -71,16 +71,17 @@ fun CitasRow(
                 .padding(horizontal = 4.dp)
                 .fillMaxWidth()
         ) {
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(
-                    text = cita.estado,
-                    style = MaterialTheme.typography.titleSmall,
-                    color = Rosa10
-                )
-            }
+            if(cita.estadoId!=1)
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = cita.estado,
+                        style = MaterialTheme.typography.titleSmall,
+                        color = Rosa10
+                    )
+                }
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()

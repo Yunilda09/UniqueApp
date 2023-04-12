@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.edu.ucne.uniqueapp.ui.theme.RosaClaro
 
-
 @Composable
 fun ConfirmationDialog(onDismiss: () -> Unit, onConfirmClick: () -> Unit) {
     Dialog(onDismissRequest = onDismiss) {

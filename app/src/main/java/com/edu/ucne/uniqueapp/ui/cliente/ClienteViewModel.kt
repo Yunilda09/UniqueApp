@@ -99,20 +99,6 @@ class ClienteViewModel @Inject constructor(
     }
 
     init {
-       /* clientesRepositoryImp.getClientes().onEach { result ->
-            when (result) {
-                is Resource.Loading -> {
-                    uiState.update { it.copy(isLoading = true) }
-                }
-                is Resource.Success -> {
-                    uiState.update {
-                        it.copy(cliente = result.data ?: emptyList())
-                    }
-                }
-                is Resource.Error -> {
-                    uiState.update { it.copy(error = result.message ?: "Error desconocido") }
-                }
-            }
-        }.launchIn(viewModelScope)*/
+
     }
 }

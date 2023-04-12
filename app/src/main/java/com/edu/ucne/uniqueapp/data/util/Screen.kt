@@ -12,5 +12,6 @@ sealed class Screen(val route: String) {
     object CitaScreen : Screen("registro_Cita")
     object CitaListScreen : Screen("consulta_Cita")
     object ServicioListScreen : Screen("consulta_Servicio")
-    object LoginScreen : Screen("login")
+    object SignIn : Screen("signIn")
+    object SignOut : Screen("signOut")
 }

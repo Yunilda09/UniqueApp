@@ -3,8 +3,9 @@ package com.edu.ucne.uniqueapp.ui
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -12,10 +13,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import com.edu.ucne.uniqueapp.R
 import com.edu.ucne.uniqueapp.data.remote.dto.Cita
-import com.edu.ucne.uniqueapp.data.remote.dto.CitaDto
 import com.edu.ucne.uniqueapp.ui.componentes.CitasRow
 import com.edu.ucne.uniqueapp.ui.componentes.ConfirmationDialog
 import com.edu.ucne.uniqueapp.ui.componentes.Menu
@@ -24,7 +23,6 @@ import com.edu.ucne.uniqueapp.ui.inicio.InicioViewModel
 import com.edu.ucne.uniqueapp.ui.theme.Green80
 import com.edu.ucne.uniqueapp.ui.theme.Rosa10
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InicioScreen(
     navItems: List<NavItem>,
@@ -32,37 +30,31 @@ fun InicioScreen(
     onVerMisCitasClick: () -> Unit,
     onSaveClick: () -> Unit,
     onCitaClick: (Int) -> Unit
-){
+) {
+
     viewModel.setUsuario(1)
     Menu(navItems = navItems) {
         val uiState by viewModel.uiState.collectAsState()
-        /*if (uiState.isLoading) {
-            *//*LaunchedEffect(Unit) {
-                delay(1.seconds)
-            }*//*
-            LoadingDialog()
-        } else */
-    Column(
-        modifier = Modifier
-            .fillMaxHeight()
-            .background(Color(0xFFFFEEED))
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.logo),
-            contentDescription = "header",
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
-        Spacer(modifier = Modifier.padding(16.dp))
-        Text(
-            text = "Date un tiempo para ti",
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            color = Color(0xFFC45559)
-        )
-        Spacer(modifier = Modifier.padding(8.dp))
-        Inicio(viewModel = viewModel, onVerMisCitasClick, onSaveClick) {
-            onCitaClick(it)
+        Column(
+            modifier = Modifier
+                .fillMaxHeight()
+                .background(Color(0xFFFFF3F5))
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.uniqueapp),
+                contentDescription = "header",
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+            Text(
+                text = "Date un tiempo para ti!",
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                color = Color(0xFFC45559)
+            )
+            Spacer(modifier = Modifier.padding(8.dp))
+            Inicio(viewModel = viewModel, onVerMisCitasClick, onSaveClick) {
+                onCitaClick(it)
+            }
         }
-    }
 
     }
 }
@@ -138,3 +130,5 @@ fun CitasProximas(
 
     }
 }
+
+
