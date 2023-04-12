@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Password
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.*
@@ -42,10 +43,17 @@ fun LoginScreen(viewModel: LoginViewModel = hiltViewModel(), login: (Int) -> Uni
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
+
             Image(
                 painter = painterResource(id = R.drawable.uniqueapp),
                 contentDescription = "header",
                 modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+            Text(
+                text = "Bienvenidas!",
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                color = Color(0xFF46A887),
+                style = MaterialTheme.typography.titleLarge,
             )
             val uiState = viewModel.uiState.collectAsState()
 
@@ -80,7 +88,7 @@ fun LoginScreen(viewModel: LoginViewModel = hiltViewModel(), login: (Int) -> Uni
                 ),
                 singleLine = true,
                 leadingIcon = {
-                    Icon(imageVector = Icons.Outlined.Password, null, tint = Color(0xFFC45559))
+                    Icon(imageVector = Icons.Outlined.Lock, null, tint = Color(0xFFC45559))
                 },
 
                 trailingIcon = {
@@ -116,11 +124,9 @@ fun LoginScreen(viewModel: LoginViewModel = hiltViewModel(), login: (Int) -> Uni
                     containerColor = Green80,
                     contentColor = Color(0xFFC45559)
                 ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)
+                modifier = Modifier.align(Alignment.CenterHorizontally).padding(8.dp)
             ) {
-                Text(text = "Login")
+                Text(text = "LOGIN")
             }
         }
     }

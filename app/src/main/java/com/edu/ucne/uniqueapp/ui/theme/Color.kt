@@ -19,3 +19,4 @@ val Rosa10 = Color(0xFFC45559)
 
 
 val Green80 = Color(0xFFC3ECDE)
+val Green10= Color(0xFF46A887)
