@@ -31,6 +31,7 @@ import com.edu.ucne.uniqueapp.ui.componentes.*
 @Composable
 fun CitasScreen(
     citaId: Int,
+    clienteId: Int,
     viewModel: CitasViewModel = hiltViewModel(),
     onSaveClick: () -> Unit,
 ) {
@@ -42,7 +43,7 @@ fun CitasScreen(
 
 
         remember {
-            viewModel.setCita(citaId)
+            viewModel.setCita(citaId, clienteId)
             0
         }
         CitasBody(viewModel = viewModel) {

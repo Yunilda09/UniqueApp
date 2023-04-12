@@ -7,7 +7,7 @@ import androidx.compose.material.icons.twotone.CalendarMonth
 import androidx.compose.material.icons.twotone.Home
 import androidx.compose.material.icons.twotone.LibraryAdd
 import androidx.compose.material.icons.twotone.Spa
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -17,14 +17,19 @@ import com.edu.ucne.uniqueapp.data.util.Screen
 import com.edu.ucne.uniqueapp.ui.citas.CitasListScreen
 import com.edu.ucne.uniqueapp.ui.citas.CitasScreen
 import com.edu.ucne.uniqueapp.ui.componentes.NavItem
+import com.edu.ucne.uniqueapp.ui.login.LoginScreen
 import com.edu.ucne.uniqueapp.ui.servicios.ServiciosListScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NavigationManager(navController: NavHostController) {
+
+    var idUsuarioLogin by remember {
+        mutableStateOf(0)
+    }
     NavHost(
         navController = navController,
-        startDestination = Screen.Inicio.route
+        startDestination = Screen.LoginScreen.route
     ) {
 
         val listaNavegacion = listOf(
@@ -46,8 +51,12 @@ fun NavigationManager(navController: NavHostController) {
             ),
         )
 
-        composable(Screen.Inicio.route) {
+        composable(Screen.Inicio.route + "/{id}",
+            arguments = listOf(navArgument("id") { type = NavType.IntType })
+        ) {
+            val clienteId = it.arguments?.getInt("id") ?: 0
             InicioScreen(
+                clienteId,
                 listaNavegacion,
                 onVerMisCitasClick = { navController.navigate(Screen.CitaListScreen.route) },
                 onSaveClick = { navController.navigate(Screen.CitaScreen.route + "/0") }) {
@@ -60,13 +69,14 @@ fun NavigationManager(navController: NavHostController) {
         )
         { navEntry ->
             val citasId = navEntry.arguments?.getInt("id") ?: 0
-            CitasScreen(citaId = citasId) {
+            CitasScreen(citaId = citasId, clienteId = idUsuarioLogin) {
                 navController.navigateUp()
             }
         }
 
         composable(Screen.CitaListScreen.route) {
             CitasListScreen(
+                idUsuarioLogin,
                 onNewCita = { navController.navigate(Screen.CitaScreen.route + "/0") },
                 navigateUp = { navController.navigateUp() }) {
                 navController.navigate(Screen.CitaScreen.route + "/$it")
@@ -78,6 +88,11 @@ fun NavigationManager(navController: NavHostController) {
                 navController.navigate(Screen.Inicio.route + "/$it")
             }
 
+        }
+        composable(Screen.LoginScreen.route){
+            LoginScreen(login = {
+                idUsuarioLogin = it
+                navController.navigate(Screen.Inicio.route + "/$it")})
         }
 
     }

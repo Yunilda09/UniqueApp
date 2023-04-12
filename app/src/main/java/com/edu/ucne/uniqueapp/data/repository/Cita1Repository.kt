@@ -12,4 +12,5 @@ interface Cita1Repository {
     suspend fun postCita(citaDto: CitaDto): CitaDto
     suspend fun putCita(id: Int, citaDto: CitaDto)
 
+
 }

@@ -88,8 +88,11 @@ class CitasViewModel @Inject constructor(
     var uiStateCliente = MutableStateFlow(ClienteUiState())
         private set
 
-    fun setCita(id: Int) {
+    fun setCita(id: Int, clienteId: Int) {
         estadoId = 0
+        setCliente(clienteId)
+        asignarNombre(uiStateCliente.value.nombre)
+        asignarApellido(uiStateCliente.value.apellido)
         if (id == 0)
             return
 
@@ -335,7 +338,6 @@ class CitasViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
-        setCliente(1)
     }
 
     fun asignarNombre(input: String) {

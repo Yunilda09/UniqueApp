@@ -22,7 +22,8 @@ import com.edu.ucne.uniqueapp.ui.componentes.ListTopBar
 fun CitasListScreen(
     clienteId: Int = 1,
     navigateUp: () -> Unit,
-    onNewCita: () -> Unit, viewModel: CitasViewModel = hiltViewModel(),
+    onNewCita: () -> Unit,
+    viewModel: CitasViewModel = hiltViewModel(),
     onCitaClick: (Int) -> Unit
 ) {
     remember {

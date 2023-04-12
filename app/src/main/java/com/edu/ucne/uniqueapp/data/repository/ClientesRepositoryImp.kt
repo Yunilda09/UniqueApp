@@ -32,4 +32,18 @@ class ClientesRepositoryImp @Inject constructor(
         }
     }
 
+    override fun getClienteByLogin(email: String, clave: String): Flow<Resource<ClientesDto>> = flow{
+        try {
+            emit(Resource.Loading())
+
+            val persona = api.getClienteByLogin(email, clave)
+
+            emit (Resource.Success(persona))
+        } catch (e: HttpException) {
+
+            emit(Resource.Error(e.message ?: "Error HTTP GENERAL"))
+        } catch (e: IOException) {
+            emit(Resource.Error(e.message ?: "Verificar tu conexion a internet"))
+        }
+    }
 }

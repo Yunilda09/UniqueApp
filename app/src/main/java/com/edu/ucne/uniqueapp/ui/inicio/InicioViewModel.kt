@@ -41,9 +41,7 @@ class InicioViewModel @Inject constructor(
     private val citasListState = MutableStateFlow(CitasListUiState())
     val listUiState = citasListState.asStateFlow()
 
-    init {
-        setUsuario(1)
-    }
+
 
     fun setUsuario(id: Int) {
         clientesRepos.getClienteById(id).onEach { resul ->

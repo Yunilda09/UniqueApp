@@ -25,14 +25,18 @@ import com.edu.ucne.uniqueapp.ui.theme.Rosa10
 
 @Composable
 fun InicioScreen(
+    id: Int,
     navItems: List<NavItem>,
     viewModel: InicioViewModel = hiltViewModel(),
     onVerMisCitasClick: () -> Unit,
     onSaveClick: () -> Unit,
     onCitaClick: (Int) -> Unit
 ) {
+    remember {
+        viewModel.setUsuario(id)
+        0
+    }
 
-    viewModel.setUsuario(1)
     Menu(navItems = navItems) {
         val uiState by viewModel.uiState.collectAsState()
         Column(
